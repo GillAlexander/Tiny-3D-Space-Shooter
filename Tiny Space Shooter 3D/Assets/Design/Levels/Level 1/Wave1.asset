@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1716598160111068640, guid: 2610f2231cbf45a40b06ba940dbf3d25, type: 3}
-  numberOfEnemies: 100
+  numberOfEnemies: 10
   minimumTimeBetweenSpawn: 0.5
   maximumTimeBetweenSpawn: 1.5
   movementBehavior: 0
@@ -51,3 +51,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  positionsToMoveBetween:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}

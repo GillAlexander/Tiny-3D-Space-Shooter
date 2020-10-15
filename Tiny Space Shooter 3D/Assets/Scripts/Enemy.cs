@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour, DamageAbleObject
 {
@@ -8,11 +6,15 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     protected float healthPoints = 10;
     private ParticlePlayer particlePlayer = null;
     private AnimationCurve animationCurve = null;
+    private int currentPosition = 0;
+    private Vector3 nextPosition;
+    private Vector3[] positionsToMoveBetween;
     private float time = 0;
 
     private void Awake()
     {
         particlePlayer = FindObjectOfType<ParticlePlayer>();
+        nextPosition = Vector3.zero;
     }
 
     private void Update()
@@ -22,12 +24,24 @@ public class Enemy : MonoBehaviour, DamageAbleObject
             Death();
         }
 
-        if (animationCurve != null) 
-        {
-            time += Time.deltaTime;
-            float evalue = animationCurve.Evaluate(time);
-            transform.Translate(new Vector3(evalue, -1, 0) * Time.deltaTime * 4);
-        }
+        //if (animationCurve != null) 
+        //{
+        //time += Time.deltaTime;
+        //float evalue = animationCurve.Evaluate(time);
+            if (transform.position == positionsToMoveBetween[currentPosition])
+            {
+                currentPosition++;
+                nextPosition = positionsToMoveBetween[currentPosition];
+            }
+            transform.Translate(nextPosition * Time.deltaTime * 2);
+            //transform.Translate(new Vector3(evalue, -1, 0) * Time.deltaTime * 4);
+        //}
+    }
+
+    public void GetPositions(Vector3[] positions)
+    {
+        positionsToMoveBetween = positions;
+        nextPosition = positionsToMoveBetween[currentPosition];
     }
 
     public void Death()
@@ -40,15 +54,6 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     {
         animationCurve = curve;
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    var player = collision.collider.GetComponent<Player>();
-    //    if (player != null)
-    //    {
-    //        player.TakeDamage(damage);
-    //    }
-    //}
 
     private void OnTriggerEnter(Collider other)
     {
