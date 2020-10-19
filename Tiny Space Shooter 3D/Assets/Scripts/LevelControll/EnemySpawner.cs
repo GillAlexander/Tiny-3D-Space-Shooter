@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    //[SerielizeField] private Waves enemyWaves = null;
-    [SerializeField] private EnemyWave[] enemyWaves = null;
     [SerializeField] private Vector3[] spawnPositions = null;
 
-    public void SpawnEnemyWave(LevelSectionInformation levelSectionInformation)
+    public void SpawnEnemyWave(LevelSectionInformation levelSectionInformation, EnemyWave wave)
     {
-        EnemyWave wave = levelSectionInformation.GetSectionWave();
         StartCoroutine(SpawnWave(wave));
     }
 
@@ -18,14 +15,11 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < currentWave.NumberOfEnemies; i++)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(currentWave.MinimumTimeBetweenSpawn, 
-                                                                                                     currentWave.MaximumTimeBetweenSpawn));
+            yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
             var enemyObject = Instantiate(currentWave.GetEnemyPrefab(), GetSpawnPosition(), Quaternion.identity);
             enemyObject.transform.parent = this.transform;
             var enemy = enemyObject.GetComponent<Enemy>();
-            enemy.AddCurve(currentWave.AnimationCurve);
             enemy.GetPositions(currentWave.PositionsToMoveBetween);
-            Debug.Log("dwadwa");
         }
     }
 

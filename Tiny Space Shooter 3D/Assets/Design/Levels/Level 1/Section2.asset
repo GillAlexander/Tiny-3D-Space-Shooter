@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b895c29c9dd181439f68c89b861a152, type: 3}
   m_Name: Section2
   m_EditorClassIdentifier: 
-  backGroundSprite: {fileID: 21300000, guid: ddcac1fac1f5c8943a30c2ef6b724062, type: 3}
+  backGroundSprite: {fileID: 21300000, guid: d9b31ebd60af68c469212c1a9f513e74, type: 3}
   wave: {fileID: 11400000, guid: 3586abd7e9e1fc045b4f632df9cbfb5e, type: 2}
   sectionLength: 2
   powerups: []
