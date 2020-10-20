@@ -15,8 +15,5 @@ MonoBehaviour:
   backGroundSprite: {fileID: 21300000, guid: ddcac1fac1f5c8943a30c2ef6b724062, type: 3}
   waves:
   - {fileID: 11400000, guid: 5a42e7c27ec4afc428e1e98d882b904e, type: 2}
-  - {fileID: 11400000, guid: 1680462e3fe8da44397b29e9c12baf5c, type: 2}
-  - {fileID: 11400000, guid: acf2f28dccb8df341bf9a954d3b62b10, type: 2}
-  - {fileID: 11400000, guid: 6ef246142be81344ca6f8fcdf5f6b816, type: 2}
   sectionLength: 2
   powerups: []

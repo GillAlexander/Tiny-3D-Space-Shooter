@@ -3,7 +3,9 @@ using UnityEngine;
 
 public enum MovementBehaviors
 {
-    ZigZag = 0
+    Straight = 0,
+    ZigZag = 1,
+    Point = 2
 }
 
 [CreateAssetMenu(menuName = "LevelDesign/EnemyWave")]

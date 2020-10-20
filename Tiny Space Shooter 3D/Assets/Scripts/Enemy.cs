@@ -1,5 +1,7 @@
 ﻿using System.Collections;
+using System.Net.Http.Headers;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class Enemy : MonoBehaviour, DamageAbleObject
 {
@@ -8,19 +10,14 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     private ParticlePlayer particlePlayer = null;
     private AnimationCurve animationCurve = null;
     private int currentPosition = 0;
-    private Vector3 nextPosition;
+    private Vector3 nextPosition = Vector3.zero;
     private Vector3[] positionsToMoveBetween;
     private float time = 0;
+    MovementBehaviors movementBehavior;
 
     private void Awake()
     {
         particlePlayer = FindObjectOfType<ParticlePlayer>();
-        nextPosition = Vector3.zero;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(MovementBehavior());
     }
 
     private void Update()
@@ -30,20 +27,46 @@ public class Enemy : MonoBehaviour, DamageAbleObject
             Death();
         }
 
-        if (transform.position == positionsToMoveBetween[currentPosition])
+        switch (movementBehavior)
         {
-            currentPosition++;
-            nextPosition = positionsToMoveBetween[currentPosition];
+            case MovementBehaviors.Straight:
+                nextPosition = transform.position + Vector3.down * 3.5f;
+                break;
+            case MovementBehaviors.ZigZag:
+                break;
+            case MovementBehaviors.Point:
+                //var distanceToNextPos = Vector3.Distance(transform.position, transform.parent.position + positionsToMoveBetween[currentPosition]);
+
+                //if (distanceToNextPos <= 1)
+                //{
+                //    if (currentPosition >= positionsToMoveBetween.Length - 1) return;
+
+                //    currentPosition++;
+                //}
+                break;
+            default:
+                break;
         }
-        //transform.Translate(nextPosition * Time.deltaTime * 2);
-        transform.position = Vector3.Lerp(transform.position, nextPosition + transform.parent.position, Time.deltaTime);
+
+        transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime);
     }
 
-    private IEnumerator MovementBehavior()
+    public void GetMovementBehavior(MovementBehaviors behavior)
     {
-
-        yield return null;
+        movementBehavior = behavior;
     }
+
+    //public class MovementBehavior
+    //{
+    //    private MovementBehaviors movementBehavior;
+
+    //    public MovementBehavior(MovementBehaviors behavior)
+    //    {
+    //        movementBehavior = behavior;
+    //    }
+
+        
+    //}
 
     public void GetPositions(Vector3[] positions)
     {

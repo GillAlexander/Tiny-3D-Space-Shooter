@@ -93,6 +93,8 @@ public class Level : MonoBehaviour
                 {
                     background.transform.position = new Vector3(0, renderer.size.y / 2, 0);
                     distanceBetweenSprites += renderer.size.y / 2;
+
+                    AddStartBackground(i);
                 }
                 else
                     background.transform.position = new Vector3(0, distanceBetweenSprites, 0);
@@ -102,5 +104,15 @@ public class Level : MonoBehaviour
                 sectionLength += renderer.size.y;
             }
         }
+    }
+
+    private void AddStartBackground(int i)
+    {
+        GameObject startSprite = new GameObject();
+        SpriteRenderer startSpriteRenderer = startSprite.AddComponent<SpriteRenderer>();
+        startSpriteRenderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
+        startSprite.name = $"BeginningSprite";
+        startSprite.transform.position = new Vector3(0, -startSpriteRenderer.size.y / 2, 0);
+        startSprite.AddComponent<MarkedForDestroy>();
     }
 }
