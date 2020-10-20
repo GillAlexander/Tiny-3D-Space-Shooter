@@ -264,11 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositions:
-  - {x: 4, y: 0, z: 0}
-  - {x: 2, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: -2, y: 0, z: 0}
-  - {x: -4, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
 --- !u!1 &435657260
 GameObject:
   m_ObjectHideFlags: 0

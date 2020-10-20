@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour, DamageAbleObject
 {
@@ -17,6 +18,11 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         nextPosition = Vector3.zero;
     }
 
+    private void Start()
+    {
+        StartCoroutine(MovementBehavior());
+    }
+
     private void Update()
     {
         if (healthPoints <= 0)
@@ -24,22 +30,25 @@ public class Enemy : MonoBehaviour, DamageAbleObject
             Death();
         }
 
-        //if (animationCurve != null) 
-        //{
-        //time += Time.deltaTime;
-        //float evalue = animationCurve.Evaluate(time);
-            if (transform.position == positionsToMoveBetween[currentPosition])
-            {
-                currentPosition++;
-                nextPosition = positionsToMoveBetween[currentPosition];
-            }
-            transform.Translate(nextPosition * Time.deltaTime * 2);
-            //transform.Translate(new Vector3(evalue, -1, 0) * Time.deltaTime * 4);
-        //}
+        if (transform.position == positionsToMoveBetween[currentPosition])
+        {
+            currentPosition++;
+            nextPosition = positionsToMoveBetween[currentPosition];
+        }
+        //transform.Translate(nextPosition * Time.deltaTime * 2);
+        transform.position = Vector3.Lerp(transform.position, nextPosition + transform.parent.position, Time.deltaTime);
+    }
+
+    private IEnumerator MovementBehavior()
+    {
+
+        yield return null;
     }
 
     public void GetPositions(Vector3[] positions)
     {
+        if (positions.Length == 0) return;
+
         positionsToMoveBetween = positions;
         nextPosition = positionsToMoveBetween[currentPosition];
     }
@@ -48,11 +57,6 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     {
         Destroy(this.gameObject);
         particlePlayer.FetchAndPlayParticleAtPosition(Particles.EnemyDeath, transform.position);
-    }
-
-    public void AddCurve(AnimationCurve curve)
-    {
-        animationCurve = curve;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,5 +71,10 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     public void TakeDamage(float damage)
     {
         healthPoints -= damage;
+    }
+
+    public void AddCurve(AnimationCurve curve)
+    {
+        animationCurve = curve;
     }
 }
