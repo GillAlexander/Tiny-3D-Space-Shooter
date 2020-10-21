@@ -12,6 +12,8 @@ public class Level : MonoBehaviour
     private int currentSection = 0;
     private int currentSectionWave = 0;
 
+    public float distanceValue = 0;
+
     private void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
@@ -38,10 +40,11 @@ public class Level : MonoBehaviour
         {
             bool spawnSectionWave = cameraY >= sectionLength * currentWave.WaveSpawnThreshHold / 100;
             //Debug.Log(sectionLength * GetCurrentSection().GetCurrentWave().WaveSpawnThreshHold / 100);
-
+            distanceValue = sectionLength * currentWave.WaveSpawnThreshHold / 100;
             if (spawnSectionWave)
             {
                 Debug.Log(GetCurrentSection().GetCurrentWave(currentSectionWave).WaveSpawnThreshHold);
+                enemySpawner.AddSpawnPositions(GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnPositions);
                 enemySpawner.SpawnEnemyWave(levelSectionsInfo[currentSection], GetCurrentSection().GetCurrentWave(currentSectionWave));
                 Debug.Log("SPAWNED WAVE");
                 currentSectionWave++;

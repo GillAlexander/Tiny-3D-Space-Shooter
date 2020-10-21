@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Vector3[] spawnPositions = null;
+    private Vector3[] spawnPositions = null;
+    private int currentSpawnNumber;
 
     public void SpawnEnemyWave(LevelSectionInformation levelSectionInformation, EnemyWave wave)
     {
@@ -19,13 +20,28 @@ public class EnemySpawner : MonoBehaviour
             var enemyObject = Instantiate(currentWave.GetEnemyPrefab(), GetSpawnPosition(), Quaternion.identity);
             enemyObject.transform.parent = this.transform;
             var enemy = enemyObject.GetComponent<Enemy>();
-            enemy.GetPositions(currentWave.PositionsToMoveBetween);
+            enemy.GetPositions(currentWave.SpawnPositions);
         }
+        currentSpawnNumber = 0;
     }
 
     private Vector3 GetSpawnPosition()
     {
-        return spawnPositions[UnityEngine.Random.Range(0, spawnPositions.Length)] + transform.position;
+        if (spawnPositions.Length == 0) return Vector3.zero;
+
+        var spawnPosition = spawnPositions[currentSpawnNumber] + transform.position;
+        currentSpawnNumber++;
+
+        if (currentSpawnNumber >= spawnPositions.Length) // Reset spawn number
+        {
+            currentSpawnNumber = 0;
+        }
+        return spawnPosition;
+    }
+
+    public void AddSpawnPositions(Vector3[] positions)
+    {
+        spawnPositions = positions;
     }
 
     private void OnDrawGizmosSelected()

@@ -16,7 +16,7 @@ public class EnemyWave : ScriptableObject
     [SerializeField] private float timeBetweenSpawns = 0;
     [SerializeField] private MovementBehaviors movementBehavior = MovementBehaviors.ZigZag;
     //[SerializeField] private AnimationCurve animationCurve = null;
-    [SerializeField] private Vector3[] positionsToMoveBetween;
+    [SerializeField] private Vector3[] spawnPositions;
 
     [Header("Section Passed Percentage")]
     [SerializeField] private float waveSpawnThreshHold = 5f;
@@ -25,7 +25,7 @@ public class EnemyWave : ScriptableObject
     public float TimeBetweenSpawns { get => timeBetweenSpawns; }
     public MovementBehaviors MovementBehavior { get => movementBehavior; }
     //public AnimationCurve AnimationCurve { get => animationCurve; }
-    public Vector3[] PositionsToMoveBetween { get => positionsToMoveBetween; }
+    public Vector3[] SpawnPositions { get => spawnPositions; }
 
     internal GameObject GetEnemyPrefab()
     {

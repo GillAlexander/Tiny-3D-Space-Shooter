@@ -5,7 +5,7 @@ public class Player : MonoBehaviour, DamageAbleObject
 {
     private float damage = 20f;
     private float powerupTime = 5f;
-    protected float healthPoints = 10;
+    private float healthPoints = 10;
 
     [SerializeField] private GameObject bullet1 = null;
     [SerializeField] private Transform[] firingPositions = null;
@@ -14,6 +14,8 @@ public class Player : MonoBehaviour, DamageAbleObject
     public int numberOfVisualDamageLoops;
     public float waitTime;
     private Coroutine damageIenumerator;
+
+    public float HealthPoints { get => healthPoints; set => healthPoints = value; }
 
     private void Awake()
     {
