@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, DamageAbleObject
 
     private Renderer playerRenderer = null;
     public int numberOfVisualDamageLoops;
-    public float waitTime;
+    public float damageWaitTime;
     private Coroutine damageIenumerator;
 
     public float HealthPoints { get => healthPoints; set => healthPoints = value; }
@@ -32,10 +32,26 @@ public class Player : MonoBehaviour, DamageAbleObject
     {
         for (int i = 0; i < firingPositions.Length; i++)
         {
+            FindObjectOfType<ParticlePlayer>().FetchAndPlayParticleAtPosition(Particles.ProjectileFire, firingPositions[i].position + Vector3.up / 2);
             var bullet = Instantiate(bullet1, firingPositions[i].position, Quaternion.identity);
             bullet.GetComponent<Projectile>().SetDamage(5);
-            bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 15;
-            FindObjectOfType<ParticlePlayer>().FetchAndPlayParticleAtPosition(Particles.ProjectileFire, transform.position + Vector3.up);
+            //switch (GameManager.GAMESPEED) // Gör om gör rätt 
+            //{
+            //    case 1:
+            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 10;
+            //        break;
+            //    case 2:
+            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 15;
+            //        break;
+            //    case 4:
+            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 20;
+            //        break;
+            //    case 12:
+            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 25;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
     }
 
@@ -65,7 +81,7 @@ public class Player : MonoBehaviour, DamageAbleObject
         InvincibilityMode(true);
         for (int i = 0; i < numberOfVisualDamageLoops; i++)
         {
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(damageWaitTime);
             if (playerRenderer.enabled)
             {
                 playerRenderer.enabled = false;

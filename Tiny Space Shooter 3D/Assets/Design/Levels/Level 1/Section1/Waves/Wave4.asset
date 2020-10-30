@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: Wave4
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1716598160111068640, guid: 2610f2231cbf45a40b06ba940dbf3d25, type: 3}
-  numberOfEnemies: 10
+  - {fileID: 1716598160111068640, guid: 2d5650781fd5b85459f238a6fe3d596b, type: 3}
+  numberOfEnemies: 8
   timeBetweenSpawns: 0.75
   movementBehavior: 0
-  positionsToMoveBetween:
-  - {x: 0, y: 0, z: 0}
-  waveSpawnThreshHold: 35
+  spawnBehavior: 1
+  spawnPositions:
+  - {x: -6, y: 0, z: 0}
+  - {x: -4, y: 0, z: 0}
+  - {x: -2, y: 0, z: 0}
+  speed: 0
+  waveSpawnThreshHold: 30

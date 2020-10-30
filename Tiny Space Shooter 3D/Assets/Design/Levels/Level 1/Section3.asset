@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Section3
   m_EditorClassIdentifier: 
   backGroundSprite: {fileID: 21300000, guid: 35313af049b4a2f42a0325330c51d74a, type: 3}
-  wave: {fileID: 11400000, guid: 3586abd7e9e1fc045b4f632df9cbfb5e, type: 2}
-  sectionLength: 2
+  waves:
+  - {fileID: 11400000, guid: 5a42e7c27ec4afc428e1e98d882b904e, type: 2}
+  sectionLength: 1
   powerups: []

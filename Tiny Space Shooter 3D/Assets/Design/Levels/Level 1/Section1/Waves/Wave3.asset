@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 1716598160111068640, guid: 2610f2231cbf45a40b06ba940dbf3d25, type: 3}
-  numberOfEnemies: 10
-  timeBetweenSpawns: 0.75
+  numberOfEnemies: 8
+  timeBetweenSpawns: 1
   movementBehavior: 0
-  positionsToMoveBetween:
+  spawnBehavior: 1
+  spawnPositions:
+  - {x: 4, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  waveSpawnThreshHold: 30
+  - {x: -4, y: 0, z: 0}
+  speed: 0
+  waveSpawnThreshHold: 20

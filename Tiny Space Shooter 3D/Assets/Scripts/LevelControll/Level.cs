@@ -8,10 +8,11 @@ public class Level : MonoBehaviour
     [SerializeField] private LevelSectionInformation[] levelSectionsInfo = null;
     private EnemySpawner enemySpawner = null;
 
-    private float sectionLength = 0;
+    private float[] sectionDistances;
+    private float sectionDistanceMoved = 0;
+
     private int currentSection = 0;
     private int currentSectionWave = 0;
-
     public float distanceValue = 0;
 
     private void Awake()
@@ -32,36 +33,44 @@ public class Level : MonoBehaviour
 
     private void Update()
     {
-        var cameraY = Camera.main.transform.position.y;
+        var cameraY = Camera.main.transform.position.y - sectionDistanceMoved;
 
         EnemyWave currentWave = GetCurrentSection().GetCurrentWave(currentSectionWave);
+        var currentSectionLength = sectionDistances[currentSection];
+        //Debug.Log(currentWave);
 
         if (currentWave != null)
         {
-            bool spawnSectionWave = cameraY >= sectionLength * currentWave.WaveSpawnThreshHold / 100;
-            //Debug.Log(sectionLength * GetCurrentSection().GetCurrentWave().WaveSpawnThreshHold / 100);
-            distanceValue = sectionLength * currentWave.WaveSpawnThreshHold / 100;
+            bool spawnSectionWave = cameraY >= currentSectionLength * currentWave.WaveSpawnThreshHold / 100;
+
+            distanceValue = currentSectionLength * currentWave.WaveSpawnThreshHold / 100; // Field for UI
+            
             if (spawnSectionWave)
             {
-                Debug.Log(GetCurrentSection().GetCurrentWave(currentSectionWave).WaveSpawnThreshHold);
-                enemySpawner.AddSpawnPositions(GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnPositions);
-                enemySpawner.SpawnEnemyWave(levelSectionsInfo[currentSection], GetCurrentSection().GetCurrentWave(currentSectionWave));
+                var spawnBehavior = GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnBehavior;
+                var movementBehavior = GetCurrentSection().GetCurrentWave(currentSectionWave).MovementBehavior;
+                var spawnPositions = GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnPositions;
+
+                enemySpawner.SpawnEnemyWave(GetCurrentSection().GetCurrentWave(currentSectionWave), spawnPositions, spawnBehavior, movementBehavior);
                 Debug.Log("SPAWNED WAVE");
                 currentSectionWave++;
             }
         }
 
-        bool sectionCompleted = cameraY >= sectionLength;
+        bool sectionCompleted = cameraY >= currentSectionLength;
+
 
         if (sectionCompleted)
         {
-
-            if (currentSection >= levelSectionsInfo.Length)
+            Debug.Log("BEGIN NEXT SECTION");
+            if (currentSection == levelSectionsInfo.Length)
             {
-                Debug.Log("No More Sections");
+                Debug.Log("No More Remaning Sections");
             }
 
-            sectionLength++;
+            currentSection++;
+            currentSectionWave = 0;
+            sectionDistanceMoved = Camera.main.transform.position.y;
         }
     }
 
@@ -73,19 +82,24 @@ public class Level : MonoBehaviour
 
     private void SpawnWorld()
     {
+        float sectionLength = 0;
+
         foreach (var target in FindObjectsOfType<MarkedForDestroy>())
         {
             if (target.gameObject == null) return;
-            UnityEditor.EditorApplication.delayCall += () => { DestroyImmediate(target.gameObject); };
+            //UnityEditor.EditorApplication.delayCall += () => { DestroyImmediate(target.gameObject); };
         }
 
         if (levelSectionsInfo[0] == null) return;
         float distanceBetweenSprites = 0;
 
+        sectionDistances = new float[levelSectionsInfo.Length];
+
         for (int i = 0; i < levelSectionsInfo.Length; i++)
         {
+            sectionLength = 0;
             //renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
-            for (int j = 0; j < levelSectionsInfo[i].GetSectionLength(); j++)
+            for (int j = 0; j < levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED; j++)
             {
                 GameObject background = new GameObject();
                 SpriteRenderer renderer = background.AddComponent<SpriteRenderer>();
@@ -94,18 +108,19 @@ public class Level : MonoBehaviour
 
                 if (i == 0 && j == 0)
                 {
-                    background.transform.position = new Vector3(0, renderer.size.y / 2, 0);
+                    background.transform.position = new Vector3(0, renderer.size.y / 2, 4);
                     distanceBetweenSprites += renderer.size.y / 2;
 
                     AddStartBackground(i);
                 }
                 else
-                    background.transform.position = new Vector3(0, distanceBetweenSprites, 0);
+                    background.transform.position = new Vector3(0, distanceBetweenSprites, 4);
 
                 background.AddComponent<MarkedForDestroy>();
                 distanceBetweenSprites += renderer.size.y;
                 sectionLength += renderer.size.y;
             }
+            sectionDistances[i] = sectionLength;
         }
     }
 
@@ -115,7 +130,7 @@ public class Level : MonoBehaviour
         SpriteRenderer startSpriteRenderer = startSprite.AddComponent<SpriteRenderer>();
         startSpriteRenderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
         startSprite.name = $"BeginningSprite";
-        startSprite.transform.position = new Vector3(0, -startSpriteRenderer.size.y / 2, 0);
+        startSprite.transform.position = new Vector3(0, -startSpriteRenderer.size.y / 2, 4);
         startSprite.AddComponent<MarkedForDestroy>();
     }
 }

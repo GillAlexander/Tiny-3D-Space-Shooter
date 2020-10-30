@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool CONTROLLTHEPLAYER = false;
+    public bool DELAYPLAYERMOVEMENT = false;
+    public float PLAYERDELAYVALUE = 0;
     [SerializeField] private float fireCooldown = 0.25f;
     private float timer = 0;
     private Player player = null;
 
+    [SerializeField] private float playerRotationThreshHold = 1f;
+         
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -17,8 +22,44 @@ public class PlayerController : MonoBehaviour
     {
         timer += Time.deltaTime;
         //player.transform.position = Vector3.Lerp(player.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 25, Time.deltaTime * 3);
-        player.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 25;
+        var cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        var cursorPositionModified = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+                                                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
+                                                 0);
+        if (CONTROLLTHEPLAYER)
+        {
+            if (DELAYPLAYERMOVEMENT)
+                player.transform.position = Vector3.Lerp(player.transform.position, cursorPosition + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
+                else
+                player.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 25;
 
+        }
+        else
+            player.transform.position = Camera.main.transform.position + Vector3.forward * 25;
+
+        var distanceToCursor = Vector3.Distance(player.transform.position, cursorPositionModified);
+
+
+        if (distanceToCursor > playerRotationThreshHold)
+        {
+            var direction = (player.transform.position - cursorPositionModified).normalized;
+            var dotDirection = Vector3.Dot(direction, Vector3.right);
+            Quaternion newRotation = new Quaternion();
+            if (dotDirection > 0) // Left
+            {
+                newRotation = Quaternion.Euler(0, -direction.y * 600 * distanceToCursor, 0);
+            }
+            else if (dotDirection < 0) // Right
+            {
+                newRotation = Quaternion.Euler(0, direction.y * 600 * distanceToCursor, 0);
+            }
+
+            player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, Time.deltaTime * 5);
+        }
+        else
+        {
+            player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 3);
+        }
 
         //if (Input.GetMouseButtonDown(1))
         //{

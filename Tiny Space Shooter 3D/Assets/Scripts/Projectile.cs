@@ -13,9 +13,14 @@ public class Projectile : MonoBehaviour
         particlePlayer = FindObjectOfType<ParticlePlayer>();
     }
 
+    private void Update()
+    {
+        transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * 16, Time.deltaTime);
+    }
+
     private IEnumerator DestroyGameObject()
     {
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(0.8f);
         Destroy(this.gameObject);
     }
 
@@ -37,10 +42,13 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var damageableObject = other.gameObject.GetComponentInParent<DamageAbleObject>();
+        Debug.Log(damageableObject);
         if (damageableObject != null)
         {
             damageableObject.TakeDamage(damage);
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
+            FindObjectOfType<UiManager>().AddHitCount();
+            FindObjectOfType<UiManager>().ShakeHitMultiplier();
             Destroy(this.gameObject);
         }
     }
