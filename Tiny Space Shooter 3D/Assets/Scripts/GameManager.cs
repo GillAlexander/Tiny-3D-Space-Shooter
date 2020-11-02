@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static float GAMESPEED = 2;
+    public static float GAMESPEED = 20;
 
     private void Start()
     {

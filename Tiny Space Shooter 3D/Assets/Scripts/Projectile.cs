@@ -15,7 +15,10 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * 16, Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * 16, Time.deltaTime);
+        var bulletPosition = transform.position + Camera.main.transform.position;
+            bulletPosition = Vector3.Normalize(bulletPosition);
+        transform.Translate((Vector3.up + bulletPosition) * Time.deltaTime * 2);
     }
 
     private IEnumerator DestroyGameObject()
