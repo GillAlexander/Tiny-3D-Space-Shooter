@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 911, y: 392}
   m_MaxSize: {x: 22006, y: 14042}
   vertical: 1
-  controlID: 125
+  controlID: 89
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 911, y: 392}
   m_MaxSize: {x: 22006, y: 14042}
   vertical: 0
-  controlID: 126
+  controlID: 90
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 433, y: 392}
   m_MaxSize: {x: 14003, y: 14042}
   vertical: 1
-  controlID: 158
+  controlID: 115
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_MinSize: {x: 433, y: 271}
   m_MaxSize: {x: 14003, y: 10021}
   vertical: 0
-  controlID: 134
+  controlID: 116
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 342}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 55
+  controlID: 91
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -481,7 +481,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
     m_HSlider: 0
-    m_VSlider: 0
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
@@ -494,7 +494,7 @@ MonoBehaviour:
       y: 21
       width: 942
       height: 445
-    m_Scale: {x: 0.41203704, y: 0.41203704}
+    m_Scale: {x: 0.43148148, y: 0.43148148}
     m_Translation: {x: 471, y: 222.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -502,12 +502,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1143.1011
-      y: -540
-      width: 2286.2021
-      height: 1080
+      x: -1091.588
+      y: -515.6652
+      width: 2183.176
+      height: 1031.3304
     m_MinimalGUI: 1
-  m_defaultScale: 0.41203704
+  m_defaultScale: 0.43148148
   m_LastWindowPixelSize: {x: 942, y: 466}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 0
@@ -551,8 +551,7 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SkipHidden: 0
     m_SearchArea: 1
-    m_Folders:
-    - Assets/Design/Levels/Level 1/Section1/Waves
+    m_Folders: []
     m_Globs: []
   m_ViewMode: 0
   m_StartGridSize: 16
@@ -565,7 +564,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: bc5d0100
     m_LastClickedID: 89532
-    m_ExpandedIDs: 00000000f6390000f8390000fa390000fc390000fe390000003a0000023a0000043a0000063a0000083a00000a3a00000c3a00000e3a0000103a0000123a0000143a0000163a0000183a00001a3a00001c3a00001e3a0000203a0000223a0000243a0000263a0000283a0000
+    m_ExpandedIDs: 00000000b8390000ba390000bc390000be390000c0390000c2390000c4390000c6390000c8390000ca390000cc390000ce390000d0390000d2390000d4390000d6390000d8390000da390000dc390000de390000e0390000e2390000e4390000e6390000e8390000ea390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -593,7 +592,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000f6390000f8390000fa390000fc390000fe390000003a0000023a0000043a0000063a0000083a00000a3a00000c3a00000e3a0000103a0000123a0000143a0000163a0000183a00001a3a00001c3a00001e3a0000203a0000223a0000243a0000263a0000283a0000
+    m_ExpandedIDs: ffffffff00000000b8390000ba390000bc390000be390000c0390000c2390000c4390000c6390000c8390000ca390000cc390000ce390000d0390000d2390000d4390000d6390000d8390000da390000dc390000de390000e0390000e2390000e4390000e6390000e8390000ea390000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -677,7 +676,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3e3a0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 60fbffff
       m_RenameOverlay:
@@ -853,7 +852,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.054957885, y: -0.3539081, z: 0.020836795, w: -0.93342656}
     speed: 2
-    m_Value: {x: -0.054958142, y: -0.35390976, z: 0.020836893, w: -0.93343097}
+    m_Value: {x: -0.054957885, y: -0.3539081, z: 0.020836795, w: -0.9334266}
   m_Size:
     m_Target: 1.6759907
     speed: 2
