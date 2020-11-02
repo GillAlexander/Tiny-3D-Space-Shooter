@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSectionsInfo:
-  - {fileID: 11400000, guid: 12f7192a99082824bad9bc94f400378e, type: 2}
+  - {fileID: 11400000, guid: 8bed5cfa1072e4841999f196c864ee7f, type: 2}
   distanceValue: 0
 --- !u!1 &1891835143
 GameObject:
