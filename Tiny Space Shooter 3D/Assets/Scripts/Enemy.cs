@@ -97,7 +97,6 @@ public class Enemy : MonoBehaviour, DamageAbleObject
 
                 if (distanceToNextPos <= 1)
                 {
-                    Debug.Log("NEXTPOS");
                     if (currentPosition >= positionsToMoveBetween.Length - 1) return;
                     currentPosition++;
                 }

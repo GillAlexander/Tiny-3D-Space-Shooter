@@ -33,8 +33,9 @@ public class Player : MonoBehaviour, DamageAbleObject
         for (int i = 0; i < firingPositions.Length; i++)
         {
             FindObjectOfType<ParticlePlayer>().FetchAndPlayParticleAtPosition(Particles.ProjectileFire, firingPositions[i].position + Vector3.up / 2);
-            var bullet = Instantiate(bullet1, firingPositions[i].position, Quaternion.identity);
+            var bullet = Instantiate(bullet1, new Vector3(firingPositions[i].position.x, firingPositions[i].position.y, 0), Quaternion.identity);
             bullet.GetComponent<Projectile>().SetDamage(5);
+
             //switch (GameManager.GAMESPEED) // Gör om gör rätt 
             //{
             //    case 1:

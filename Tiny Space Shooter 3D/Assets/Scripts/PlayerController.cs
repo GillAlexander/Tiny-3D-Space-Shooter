@@ -29,16 +29,18 @@ public class PlayerController : MonoBehaviour
         if (CONTROLLTHEPLAYER)
         {
             if (DELAYPLAYERMOVEMENT)
-                player.transform.position = Vector3.Lerp(player.transform.position, cursorPosition + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
+                player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(cursorPosition.x,
+                                                                                                                                    cursorPosition.y + 2.5f,
+                                                                                                                                    cursorPosition.z) + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
                 else
-                player.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 25;
-
+                player.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 
+                                                                                                                             Input.mousePosition.y + 2.5f, 
+                                                                                                                             Input.mousePosition.z)) + Vector3.forward * 25;
         }
         else
             player.transform.position = Camera.main.transform.position + Vector3.forward * 25;
 
         var distanceToCursor = Vector3.Distance(player.transform.position, cursorPositionModified);
-
 
         if (distanceToCursor > playerRotationThreshHold)
         {

@@ -22,13 +22,13 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < currentWave.NumberOfEnemies; i++)
         {
-            yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
             var enemyObject = Instantiate(currentWave.GetEnemyPrefab(), GetSpawnPosition(SBehavior, spawnPos), Quaternion.identity);
             enemyObject.transform.parent = this.transform;
             var enemy = enemyObject.GetComponent<Enemy>();
             enemy.GetMovementBehavior(MBehavior);
             enemy.GetMovementPositions(currentWave.PositionToMoveTo);
             enemy.GetPlayer(player);
+            yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
         }
         currentSpawnNumber = 0;
     }
@@ -44,12 +44,12 @@ public class EnemySpawner : MonoBehaviour
                 spawnPosition = spawnPos[UnityEngine.Random.Range(0, spawnPos.Length)] + transform.position;
                 break;
             case SpawnBehaviors.StepThrough:
-                currentSpawnNumber++;
                 if (currentSpawnNumber >= spawnPos.Length) // Reset spawn number
                 {
                     currentSpawnNumber = 0;
                 }
                 spawnPosition = spawnPos[currentSpawnNumber] + transform.position;
+                currentSpawnNumber++;
                 break;
         }
         

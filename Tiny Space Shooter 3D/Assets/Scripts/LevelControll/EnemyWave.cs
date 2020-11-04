@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
 public enum MovementBehaviors
@@ -19,19 +20,20 @@ public class EnemyWave : ScriptableObject
 {
     [SerializeField] private GameObject[] enemyPrefabs = null;
     [SerializeField] private int numberOfEnemies = 0;
+
+    [Header("Spawn Behavior")]
     [SerializeField] private float timeBetweenSpawns = 0;
-    [SerializeField] private MovementBehaviors movementBehavior = MovementBehaviors.ZigZag;
-    //[SerializeField] private AnimationCurve animationCurve = null;
     [SerializeField] private SpawnBehaviors spawnBehavior;
     [SerializeField] private Vector3[] spawnPositions;
+
+    [Header("Movement Behavior")]
+    [SerializeField] private MovementBehaviors movementBehavior;
     [SerializeField] private Vector3[] positionToMoveTo;
 
     [Header("Section Passed Percentage")]
     [SerializeField] private float waveSpawnThreshHold = 5f;
     public int NumberOfEnemies { get => numberOfEnemies; }
     public float TimeBetweenSpawns { get => timeBetweenSpawns; }
-    public MovementBehaviors MovementBehavior { get => movementBehavior; }
-    //public AnimationCurve AnimationCurve { get => animationCurve; }
     public Vector3[] SpawnPositions { get => spawnPositions; }
 
     internal GameObject GetEnemyPrefab()
@@ -40,5 +42,6 @@ public class EnemyWave : ScriptableObject
     }
     public float WaveSpawnThreshHold { get => waveSpawnThreshHold; }
     public SpawnBehaviors SpawnBehavior { get => spawnBehavior; }
+    public MovementBehaviors MovementBehavior { get => movementBehavior; }
     public Vector3[] PositionToMoveTo { get => positionToMoveTo; }
 }
