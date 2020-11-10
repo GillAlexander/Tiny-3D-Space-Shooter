@@ -95,7 +95,9 @@ MonoBehaviour:
   canFire: 1
   projectilePrefab: {fileID: 3636655152904334053, guid: c2d0a6a7212e9cf45b8475f66cdb537c, type: 3}
   ShootingBehavior: 0
+  healthPoints: 2
   rateOfFire: 1.25
+  deathSound: {fileID: 0}
 --- !u!54 &2216869371996948079
 Rigidbody:
   m_ObjectHideFlags: 0

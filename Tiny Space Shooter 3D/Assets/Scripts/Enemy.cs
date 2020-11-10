@@ -1,10 +1,4 @@
-﻿using System.Collections;
-using System.IO.Compression;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using UnityEngine;
-using UnityEngine.PlayerLoop;
+﻿using UnityEngine;
 
 enum ShootingBehavior
 {
@@ -20,7 +14,7 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     [SerializeField] private GameObject projectilePrefab = null;
     [SerializeField] private ShootingBehavior ShootingBehavior = ShootingBehavior.Down;
 
-    protected float healthPoints = 10;
+    [SerializeField] private float healthPoints = 10;
     private ParticlePlayer particlePlayer = null;
     private AnimationCurve animationCurve = null;
     private int currentPosition = 0;
@@ -34,6 +28,8 @@ public class Enemy : MonoBehaviour, DamageAbleObject
 
     [SerializeField] private float rateOfFire = 0.5f;
     private bool zigRight = false;
+
+    public AudioSource deathSound = null;
 
     private void Awake()
     {
@@ -147,6 +143,8 @@ public class Enemy : MonoBehaviour, DamageAbleObject
 
     public void Death()
     {
+        deathSound.transform.parent = null;
+        deathSound.Play();
         Destroy(this.gameObject);
         particlePlayer.FetchAndPlayParticleAtPosition(Particles.EnemyDeath, transform.position);
     }

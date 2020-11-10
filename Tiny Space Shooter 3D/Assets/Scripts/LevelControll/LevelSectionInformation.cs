@@ -13,6 +13,7 @@ public class LevelSectionInformation : ScriptableObject
 
 
     public Sprite GetBackgroundSprite() => backGroundSprite;
+    public float GetBackgroundSpriteLength() => backGroundSprite.texture.height / 100; //This may not work as intended
     public int GetSectionLength() => sectionLength;
     public EnemyWave GetCurrentWave(int currentWave)
     {

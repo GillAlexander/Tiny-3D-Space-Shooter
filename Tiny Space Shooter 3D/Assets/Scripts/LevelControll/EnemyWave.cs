@@ -2,6 +2,12 @@
 using System.Runtime.Remoting.Messaging;
 using UnityEngine;
 
+public enum WaveType
+{
+    Minionwave = 0,
+    Bosswave = 1
+}
+
 public enum MovementBehaviors
 {
     Straight = 0,
@@ -18,6 +24,7 @@ public enum SpawnBehaviors
 [CreateAssetMenu(menuName = "LevelDesign/EnemyWave")]
 public class EnemyWave : ScriptableObject
 {
+    [SerializeField] private WaveType waveType = WaveType.Minionwave;
     [SerializeField] private GameObject[] enemyPrefabs = null;
     [SerializeField] private int numberOfEnemies = 0;
 
@@ -29,6 +36,7 @@ public class EnemyWave : ScriptableObject
     [Header("Movement Behavior")]
     [SerializeField] private MovementBehaviors movementBehavior;
     [SerializeField] private Vector3[] positionToMoveTo;
+
 
     [Header("Section Passed Percentage")]
     [SerializeField] private float waveSpawnThreshHold = 5f;
@@ -44,4 +52,5 @@ public class EnemyWave : ScriptableObject
     public SpawnBehaviors SpawnBehavior { get => spawnBehavior; }
     public MovementBehaviors MovementBehavior { get => movementBehavior; }
     public Vector3[] PositionToMoveTo { get => positionToMoveTo; }
+    public WaveType WaveType { get => waveType; }
 }

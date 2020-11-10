@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
     private Player player = null;
 
     [SerializeField] private float playerRotationThreshHold = 1f;
-         
+    public AudioSource laserSound = null;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
         if (timer >= fireCooldown) // Implement press to fire option
         {
             player.Fire();
+            laserSound.Play();
             timer = 0;
         }
         //}

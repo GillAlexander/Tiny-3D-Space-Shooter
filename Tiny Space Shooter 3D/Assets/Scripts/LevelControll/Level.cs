@@ -21,11 +21,6 @@ public class Level : MonoBehaviour
         SpawnWorld();
     }
 
-    private void Start()
-    {
-        //enemySpawner.SpawnEnemyWave(levelSectionsInfo[0]);
-    }
-
     private void OnValidate()
     {
         //SpawnWorld();
@@ -34,17 +29,16 @@ public class Level : MonoBehaviour
     private void Update()
     {
         var cameraY = Camera.main.transform.position.y - sectionDistanceMoved;
+        //var waveType = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveType;
 
         EnemyWave currentWave = GetCurrentSection().GetCurrentWave(currentSectionWave);
         var currentSectionLength = sectionDistances[currentSection];
-        //Debug.Log(currentWave);
 
         if (currentWave != null)
         {
             bool spawnSectionWave = cameraY >= currentSectionLength * currentWave.WaveSpawnThreshHold / 100;
+            distanceValue = currentSectionLength * currentWave.WaveSpawnThreshHold / 100; // Field for UI 
 
-            distanceValue = currentSectionLength * currentWave.WaveSpawnThreshHold / 100; // Field for UI
-            
             if (spawnSectionWave)
             {
                 var spawnBehavior = GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnBehavior;
@@ -53,12 +47,23 @@ public class Level : MonoBehaviour
 
                 enemySpawner.SpawnEnemyWave(GetCurrentSection().GetCurrentWave(currentSectionWave), spawnPositions, spawnBehavior, movementBehavior);
                 Debug.Log("SPAWNED WAVE");
+
                 currentSectionWave++;
             }
         }
 
         bool sectionCompleted = cameraY >= currentSectionLength;
 
+         if (GetCurrentSection().GetCurrentWave(currentSectionWave - 1).WaveType == WaveType.Bosswave)
+        {
+            if (sectionCompleted)
+            {
+                Debug.Log(GetCurrentSection().GetBackgroundSpriteLength());
+                Camera.main.transform.position -= new Vector3(0,
+                    GetCurrentSection().GetBackgroundSpriteLength(),
+                    0);
+            }
+        }
 
         if (sectionCompleted)
         {
@@ -99,7 +104,19 @@ public class Level : MonoBehaviour
         {
             sectionLength = 0;
             //renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
-            for (int j = 0; j < levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED; j++)
+            int numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
+            var waveType = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveType;
+
+            if (waveType == WaveType.Bosswave)
+            {
+                numberOfBackground = levelSectionsInfo[i].GetSectionLength();
+            }
+            else if (waveType == WaveType.Minionwave)
+            {
+                numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
+            }
+
+            for (int j = 0; j < numberOfBackground; j++)
             {
                 GameObject background = new GameObject();
                 SpriteRenderer renderer = background.AddComponent<SpriteRenderer>();

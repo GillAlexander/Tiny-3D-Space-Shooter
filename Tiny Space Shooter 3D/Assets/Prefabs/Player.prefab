@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2094029946647990840}
   - component: {fileID: 5095504017889624942}
+  - component: {fileID: 3796249426693671440}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -50,6 +51,24 @@ MonoBehaviour:
   - {fileID: 4752227162234617093}
   numberOfVisualDamageLoops: 10
   damageWaitTime: 0
+--- !u!114 &3796249426693671440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094029946647990844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba831555f84f144cbdbd46248748560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CONTROLLTHEPLAYER: 1
+  DELAYPLAYERMOVEMENT: 1
+  PLAYERDELAYVALUE: 10
+  fireCooldown: 0.4
+  playerRotationThreshHold: 1
+  laserSound: {fileID: 0}
 --- !u!1 &4308124930640035426
 GameObject:
   m_ObjectHideFlags: 0

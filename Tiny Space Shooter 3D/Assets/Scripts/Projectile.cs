@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private float damage = 0;
     ParticlePlayer particlePlayer = null;
+    public AudioSource hitSound = null;
 
     private void Awake()
     {
@@ -54,6 +55,8 @@ public class Projectile : MonoBehaviour
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
             FindObjectOfType<UiManager>().AddHitCount();
             FindObjectOfType<UiManager>().ShakeHitMultiplier();
+            hitSound.transform.parent = null;
+            hitSound.Play();
             Destroy(this.gameObject);
         }
     }

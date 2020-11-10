@@ -34,25 +34,7 @@ public class Player : MonoBehaviour, DamageAbleObject
         {
             FindObjectOfType<ParticlePlayer>().FetchAndPlayParticleAtPosition(Particles.ProjectileFire, firingPositions[i].position + Vector3.up / 2);
             var bullet = Instantiate(bullet1, new Vector3(firingPositions[i].position.x, firingPositions[i].position.y, 0), Quaternion.identity);
-            bullet.GetComponent<Projectile>().SetDamage(5);
-
-            //switch (GameManager.GAMESPEED) // Gör om gör rätt 
-            //{
-            //    case 1:
-            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 10;
-            //        break;
-            //    case 2:
-            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 15;
-            //        break;
-            //    case 4:
-            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 20;
-            //        break;
-            //    case 12:
-            //        bullet.GetComponent<Rigidbody>().velocity = Vector3.up * 25;
-            //        break;
-            //    default:
-            //        break;
-            //}
+            bullet.GetComponent<Projectile>().SetDamage(1);
         }
     }
 
