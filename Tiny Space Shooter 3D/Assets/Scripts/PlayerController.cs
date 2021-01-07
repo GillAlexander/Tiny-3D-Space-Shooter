@@ -71,7 +71,11 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Spin");
             StartCoroutine(SpinPlayer());
+        }
 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CONTROLLTHEPLAYER = !CONTROLLTHEPLAYER;
         }
 
         //if (Input.GetMouseButtonDown(1))

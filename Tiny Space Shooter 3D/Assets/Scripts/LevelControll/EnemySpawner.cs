@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     currentSpawnNumber = 0;
                 }
-                Debug.Log(currentSpawnNumber);
+                Debug.Log($"CurrentSpawnNumber: {currentSpawnNumber}");
                 spawnPosition = spawnPos[currentSpawnNumber] + transform.position;
                 currentSpawnNumber++;
                 break;
