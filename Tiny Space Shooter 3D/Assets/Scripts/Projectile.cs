@@ -55,8 +55,8 @@ public class Projectile : MonoBehaviour
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
             FindObjectOfType<UiManager>().AddHitCount();
             FindObjectOfType<UiManager>().ShakeHitMultiplier();
-            hitSound.transform.parent = null;
-            hitSound.Play();
+            //hitSound.transform.parent = null;
+            //hitSound.Play();
             Destroy(this.gameObject);
         }
     }

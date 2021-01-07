@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static int GAMESPEED = 6;
+    public static int GAMESPEED = 8;
 
     private void Start()
     {

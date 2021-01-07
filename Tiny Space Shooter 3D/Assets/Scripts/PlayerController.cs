@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerRotationThreshHold = 1f;
     public AudioSource laserSound = null;
 
+    private int rotationY = 0;
+    public AnimationCurve spinCurve;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -43,25 +46,32 @@ public class PlayerController : MonoBehaviour
 
         var distanceToCursor = Vector3.Distance(player.transform.position, cursorPositionModified);
 
-        if (distanceToCursor > playerRotationThreshHold)
-        {
-            var direction = (player.transform.position - cursorPositionModified).normalized;
-            var dotDirection = Vector3.Dot(direction, Vector3.right);
-            Quaternion newRotation = new Quaternion();
-            if (dotDirection > 0) // Left
-            {
-                newRotation = Quaternion.Euler(0, -direction.y * 600 * distanceToCursor, 0);
-            }
-            else if (dotDirection < 0) // Right
-            {
-                newRotation = Quaternion.Euler(0, direction.y * 600 * distanceToCursor, 0);
-            }
+        //if (distanceToCursor > playerRotationThreshHold)
+        //{
+        //    var direction = (player.transform.position - cursorPositionModified).normalized;
+        //    var dotDirection = Vector3.Dot(direction, Vector3.right);
+        //    Quaternion newRotation = new Quaternion();
+        //    if (dotDirection > 0) // Left
+        //    {
+        //        newRotation = Quaternion.Euler(0, -direction.y * 600 * distanceToCursor, 0);
+        //    }
+        //    else if (dotDirection < 0) // Right
+        //    {
+        //        newRotation = Quaternion.Euler(0, direction.y * 600 * distanceToCursor, 0);
+        //    }
 
-            player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, Time.deltaTime * 5);
-        }
-        else
+        //    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, Time.deltaTime * 5);
+        //}
+        //else
+        //{
+        //    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 3);
+        //}
+
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 3);
+            Debug.Log("Spin");
+            StartCoroutine(SpinPlayer());
+
         }
 
         //if (Input.GetMouseButtonDown(1))
@@ -73,5 +83,13 @@ public class PlayerController : MonoBehaviour
             timer = 0;
         }
         //}
+    }
+
+    private IEnumerator SpinPlayer()
+    {
+        rotationY++;
+        var newRotation = Quaternion.Euler(0, player.transform.rotation.y + rotationY, 0);
+        player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, spinCurve.Evaluate(Time.deltaTime));
+        yield return null;
     }
 }

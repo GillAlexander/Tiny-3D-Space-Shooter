@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 3e6537019ca68da4e87a715e5ea4e55c
+  - enabled: 1
+    path: Assets/Scenes/Paralaxx Test Scene.unity
+    guid: 08b66fd5e0d35a8468d85a605216e3f3
+  - enabled: 1
+    path: Assets/Scenes/CampainSelection.unity
+    guid: 9d3e150ddc9fbd64abd70571dacff9b0
   m_configObjects: {}

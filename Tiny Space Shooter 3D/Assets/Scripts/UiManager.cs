@@ -8,6 +8,7 @@ public class UiManager : MonoBehaviour
     public TMP_Text distanceText;
     public TMP_Text NextWave;
     public TMP_Text hitMultiplier = null;
+    public TMP_Text timeText = null;
 
     private Level level = null;
     private Player player = null;
@@ -32,8 +33,9 @@ public class UiManager : MonoBehaviour
 
 
         distanceText.text = $"Distance: {cameraY}";
-        NextWave.text = $"Next Wave: {level.distanceValue}";
+        //NextWave.text = $"Next Wave: {level.distanceValue}";
         lifeText.text = $"Life: {player.HealthPoints}";
+        timeText.text = $"SectionTime: {level.timeUntilNextWave}";
 
         if (hasHitCombo)
         {

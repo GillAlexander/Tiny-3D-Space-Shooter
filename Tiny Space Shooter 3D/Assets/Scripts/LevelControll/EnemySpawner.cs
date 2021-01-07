@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     private int currentSpawnNumber;
-    private MovementBehaviors movementBehavior;
     private Player player = null;
+    public bool waveCompleted = false;
 
     private void Awake()
     {
@@ -15,6 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemyWave(EnemyWave wave, Vector3[] spawnPos, SpawnBehaviors spawnbehavior, MovementBehaviors movementBehavior)
     {
+        waveCompleted = false;
         StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
     }
 
@@ -30,7 +31,8 @@ public class EnemySpawner : MonoBehaviour
             enemy.GetPlayer(player);
             yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
         }
-        currentSpawnNumber = 0;
+        //currentSpawnNumber = 0; // Behöver fixas, currentspawnnumber behöver bli 0 när waven är slut men skall inte påverka nästa wave som spawnar
+        waveCompleted = true;
     }
 
     private Vector3 GetSpawnPosition(SpawnBehaviors behavior, Vector3[] spawnPos)
@@ -48,6 +50,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     currentSpawnNumber = 0;
                 }
+                Debug.Log(currentSpawnNumber);
                 spawnPosition = spawnPos[currentSpawnNumber] + transform.position;
                 currentSpawnNumber++;
                 break;
