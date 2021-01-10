@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MenuSectionInfo
   m_EditorClassIdentifier: 
   backGroundSprite: {fileID: 0}
-  backgroundImage: {fileID: 0}
+  backgroundImage: {fileID: 2879158032454880613, guid: 29d93b01db2e989449ffdac15a7df350, type: 3}
   waves: []
   sectionLength: 1
   powerups: []

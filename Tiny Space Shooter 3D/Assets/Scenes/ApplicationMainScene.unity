@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSectionsInfo:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: a9a9eb19c0942a0448b220f5781f66e3, type: 2}
   positionChecker: {fileID: 1170974811}
   timeUntilNextWave: 0
 --- !u!4 &282341662
