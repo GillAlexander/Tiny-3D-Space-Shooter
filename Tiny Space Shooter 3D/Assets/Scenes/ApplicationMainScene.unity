@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: MainMenuPanel
+      value: 
+      objectReference: {fileID: 1995073032}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: MapSelectionPanel
+      value: 
+      objectReference: {fileID: 1706266278}
     - target: {fileID: 2731838833891741424, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -173,10 +181,6 @@ PrefabInstance:
     - target: {fileID: 2731838833891741424, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2731838833891741425, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
-      propertyPath: level1
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2731838833891741431, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_Name
@@ -1126,36 +1130,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853602822}
   m_CullTransparentMesh: 0
---- !u!1 &945188251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2731838833891741431, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+--- !u!114 &945188252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
   m_PrefabInstance: {fileID: 20645019}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &945188252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945188251}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f6d27752c6f7194eb926b0bf3af0888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainMenuPanel: {fileID: 1995073032}
-  MapSelectionPanel: {fileID: 1706266278}
-  PausePanel: {fileID: 0}
---- !u!114 &945188253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945188251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab2adb7a2cb05c4992d88ebfcec8014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &977848302

@@ -18,6 +18,11 @@ public class Level : MonoBehaviour
 
     private List<GameObject> backgroundImages = new List<GameObject>();
 
+    internal void ResetLevel()
+    {
+        throw new NotImplementedException();
+    }
+
     private float waveCountdownTime = 0;
     private float objectSpawnTime = 0;
     [HideInInspector] public float timeUntilNextWave;

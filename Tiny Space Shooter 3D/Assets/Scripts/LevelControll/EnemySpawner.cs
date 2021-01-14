@@ -19,6 +19,13 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
     }
 
+    internal void ResetSpawner()
+    {
+        StopAllCoroutines();
+        currentSpawnNumber = 0;
+        waveCompleted = false;  
+    }
+
     private IEnumerator SpawnWave(EnemyWave currentWave, Vector3[] spawnPos, SpawnBehaviors SBehavior, MovementBehaviors MBehavior)
     {
         for (int i = 0; i < currentWave.NumberOfEnemies; i++)

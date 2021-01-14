@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2731838833891741424}
   - component: {fileID: 2731838833891741425}
+  - component: {fileID: 945188252}
+  - component: {fileID: 945188253}
+  - component: {fileID: 6936010719501169830}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -44,3 +47,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   campainScene: 3
+  level1: 2
+--- !u!114 &945188252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731838833891741431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6d27752c6f7194eb926b0bf3af0888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMenuPanel: {fileID: 0}
+  MapSelectionPanel: {fileID: 0}
+  PausePanel: {fileID: 0}
+--- !u!114 &945188253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731838833891741431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab2adb7a2cb05c4992d88ebfcec8014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6936010719501169830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731838833891741431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bf44e7568d29d545aae464bc916702b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

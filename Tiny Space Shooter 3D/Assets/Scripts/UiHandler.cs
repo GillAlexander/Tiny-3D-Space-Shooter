@@ -25,8 +25,6 @@ public class UiHandler : MonoBehaviour
     {
         MapSelectionPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
-
-
     }
 
     public void PauseMenu()
