@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class SetupLevelState : State<ApplicationStates>
 {
+    private Level level = null;
+    private LevelSectionInformation[] levels = null;
+
     public override void OnStateEnter()
     {
-        throw new System.NotImplementedException();
+        level = GameObject.FindObjectOfType<Level>();
+        levels = Resources.LoadAll<LevelSectionInformation>("Level1");
+        level.FetchLevelInfo(levels);
     }
 
     public override void OnStateExit()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Tick()
     {
-        throw new System.NotImplementedException();
+
     }
 }

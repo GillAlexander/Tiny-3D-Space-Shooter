@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class UiHandler : MonoBehaviour
     [SerializeField] private GameObject MainMenuPanel = null;
     [SerializeField] private GameObject MapSelectionPanel = null;
     [SerializeField] private GameObject PausePanel = null;
+
+    public event Action selectLevel;
+    public Button levelSelectButton = null;
 
     public void MainMenu()
     {
@@ -30,5 +34,10 @@ public class UiHandler : MonoBehaviour
     public void PauseMenu()
     {
         PausePanel.SetActive(true);
+    }
+
+    public void SelectLevel(int level)
+    {
+        selectLevel?.Invoke();
     }
 }

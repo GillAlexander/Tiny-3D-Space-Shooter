@@ -23,11 +23,6 @@ public class ApplicationStateMachine : Context<ApplicationStates>
         states[ApplicationStates.PauseState] = new PauseState();
     }
 
-    private void OnEnable()
-    {
-        ChangeState(ApplicationStates.Menu);
-    }
-
     protected override void Start()
     {
         ChangeState(ApplicationStates.Menu);

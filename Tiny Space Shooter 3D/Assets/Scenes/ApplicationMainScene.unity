@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: MapSelectionPanel
       value: 
       objectReference: {fileID: 1706266278}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: levelSelectButton
+      value: 
+      objectReference: {fileID: 1926860334}
     - target: {fileID: 2731838833891741424, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -185,6 +189,10 @@ PrefabInstance:
     - target: {fileID: 2731838833891741431, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_Name
       value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 6936010719501169830, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
@@ -522,6 +530,9 @@ MonoBehaviour:
   levelSectionsInfo:
   - {fileID: 11400000, guid: a9a9eb19c0942a0448b220f5781f66e3, type: 2}
   positionChecker: {fileID: 1170974811}
+  TESTLevel1:
+  - {fileID: 11400000, guid: c0bcd96483f994f46bb1c833f3f9b4c4, type: 2}
+  TESTLevel2: []
   timeUntilNextWave: 0
 --- !u!4 &282341662
 Transform:
@@ -2063,7 +2074,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 945188252}
         m_TargetAssemblyTypeName: UiHandler, Assembly-CSharp
-        m_MethodName: GamePlay
+        m_MethodName: SelectLevel
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2403,7 +2414,7 @@ GameObject:
   - component: {fileID: 1926860335}
   - component: {fileID: 1926860334}
   m_Layer: 5
-  m_Name: Button
+  m_Name: MapSelectButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

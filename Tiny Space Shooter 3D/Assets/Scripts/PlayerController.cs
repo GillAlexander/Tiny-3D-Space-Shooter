@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool CONTROLLTHEPLAYER = false;
-    public bool DELAYPLAYERMOVEMENT = false;
+    [SerializeField] private bool playerHasControll = false;
     public float PLAYERDELAYVALUE = 0;
     [SerializeField] private float fireCooldown = 0.25f;
     private float timer = 0;
@@ -25,47 +24,16 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        //player.transform.position = Vector3.Lerp(player.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition) + Vector3.forward * 25, Time.deltaTime * 3);
         var cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        var cursorPositionModified = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-                                                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
-                                                 0);
-        if (CONTROLLTHEPLAYER)
+
+        if (playerHasControll)
         {
-            if (DELAYPLAYERMOVEMENT)
-                player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(cursorPosition.x,
-                                                                                                                                    cursorPosition.y + 2.5f,
-                                                                                                                                    cursorPosition.z) + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
-                else
-                player.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 
-                                                                                                                             Input.mousePosition.y + 2.5f, 
-                                                                                                                             Input.mousePosition.z)) + Vector3.forward * 25;
+                player.transform.position = Vector3.Lerp(player.transform.position, 
+                                                                            new Vector3(cursorPosition.x, cursorPosition.y + 2.5f, cursorPosition.z) + Vector3.forward * 25,
+                                                                            Time.deltaTime * PLAYERDELAYVALUE);
         }
         else
             player.transform.position = Camera.main.transform.position + Vector3.forward * 25;
-
-        var distanceToCursor = Vector3.Distance(player.transform.position, cursorPositionModified);
-
-        //if (distanceToCursor > playerRotationThreshHold)
-        //{
-        //    var direction = (player.transform.position - cursorPositionModified).normalized;
-        //    var dotDirection = Vector3.Dot(direction, Vector3.right);
-        //    Quaternion newRotation = new Quaternion();
-        //    if (dotDirection > 0) // Left
-        //    {
-        //        newRotation = Quaternion.Euler(0, -direction.y * 600 * distanceToCursor, 0);
-        //    }
-        //    else if (dotDirection < 0) // Right
-        //    {
-        //        newRotation = Quaternion.Euler(0, direction.y * 600 * distanceToCursor, 0);
-        //    }
-
-        //    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, Time.deltaTime * 5);
-        //}
-        //else
-        //{
-        //    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 3);
-        //}
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -75,18 +43,20 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CONTROLLTHEPLAYER = !CONTROLLTHEPLAYER;
+            playerHasControll = !playerHasControll;
         }
 
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        if (timer >= fireCooldown) // Implement press to fire option
+        ShootMainWeapon();
+    }
+
+    private void ShootMainWeapon()
+    {
+        if (timer >= fireCooldown)
         {
             player.Fire();
             laserSound.Play();
             timer = 0;
         }
-        //}
     }
 
     private IEnumerator SpinPlayer()
@@ -96,4 +66,33 @@ public class PlayerController : MonoBehaviour
         player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, spinCurve.Evaluate(Time.deltaTime));
         yield return null;
     }
+
+    public void EnablePlayerControll() => playerHasControll = true;
+    public void DisablePlayerControll() => playerHasControll = false;  
 }
+
+//var cursorPositionModified = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+//                                         Camera.main.ScreenToWorldPoint(Input.mousePosition).y,
+//                                         0);
+
+//var distanceToCursor = Vector3.Distance(player.transform.position, cursorPositionModified);
+//if (distanceToCursor > playerRotationThreshHold)
+//{
+//    var direction = (player.transform.position - cursorPositionModified).normalized;
+//    var dotDirection = Vector3.Dot(direction, Vector3.right);
+//    Quaternion newRotation = new Quaternion();
+//    if (dotDirection > 0) // Left
+//    {
+//        newRotation = Quaternion.Euler(0, -direction.y * 600 * distanceToCursor, 0);
+//    }
+//    else if (dotDirection < 0) // Right
+//    {
+//        newRotation = Quaternion.Euler(0, direction.y * 600 * distanceToCursor, 0);
+//    }
+
+//    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, Time.deltaTime * 5);
+//}
+//else
+//{
+//    player.transform.rotation = Quaternion.Lerp(player.transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 3);
+//}

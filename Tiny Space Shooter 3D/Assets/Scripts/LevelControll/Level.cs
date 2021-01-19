@@ -10,17 +10,26 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject positionChecker = null;
     private EnemySpawner enemySpawner = null;
     private EnemyWave currentWave = null;
-    private float[] sectionDistances;
-    private float sectionDistanceMoved = 0;
-    private int currentSection = 0;
+    private int currentSectionNumber = 0;
     private int currentSectionWave = 0;
-    //public float distanceValue = 0;
+
+    private GameObject paralaxxBackground = null;
 
     private List<GameObject> backgroundImages = new List<GameObject>();
 
-    internal void ResetLevel()
+    public void ResetLevel()
     {
-        throw new NotImplementedException();
+        waveCountdownTime = 0;
+        objectSpawnTime = 0;
+        timeUntilNextWave = 0;
+        levelSectionsInfo = null;
+        Destroy(paralaxxBackground);
+    }
+
+    public void FetchLevelInfo(LevelSectionInformation[] newLevelSectionInfo)
+    {
+        levelSectionsInfo = newLevelSectionInfo;
+        SpawnParallaxBackground();
     }
 
     private float waveCountdownTime = 0;
@@ -35,45 +44,42 @@ public class Level : MonoBehaviour
     private void Start()
     {
         SpawnParallaxBackground();
-
     }
 
     bool spawnObject = false;
     int currentObjectSpawn = 0;
+
     private void Update()
     {
         waveCountdownTime += Time.deltaTime;
         objectSpawnTime += Time.deltaTime;
 
-        //var cameraY = Camera.main.transform.position.y - sectionDistanceMoved;
-        //var waveType = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveType;
+        var currentSection = GetCurrentSection();
 
         if (GetCurrentSection() != null)
-            currentWave = GetCurrentSection().GetCurrentWave(currentSectionWave);
-
-        //var currentSectionLength = sectionDistances[currentSection];
+            currentWave = currentSection.GetCurrentWave(currentSectionWave);
 
         if (currentWave != null)
         {
-            bool spawnSectionWave = waveCountdownTime >= GetCurrentSection().GetCurrentWave(currentSectionWave).WaveTimeBeforeSpawn;
-            timeUntilNextWave = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveTimeBeforeSpawn - waveCountdownTime;
+            bool spawnSectionWave = waveCountdownTime >= currentSection.GetCurrentWave(currentSectionWave).WaveTimeBeforeSpawn;
+            timeUntilNextWave = currentSection.GetCurrentWave(currentSectionWave).WaveTimeBeforeSpawn - waveCountdownTime;
 
             if (spawnSectionWave)
             {
-                var spawnBehavior = GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnBehavior;
-                var movementBehavior = GetCurrentSection().GetCurrentWave(currentSectionWave).MovementBehavior;
-                var spawnPositions = GetCurrentSection().GetCurrentWave(currentSectionWave).SpawnPositions;
+                var spawnBehavior = currentSection.GetCurrentWave(currentSectionWave).SpawnBehavior;
+                var movementBehavior = currentSection.GetCurrentWave(currentSectionWave).MovementBehavior;
+                var spawnPositions = currentSection.GetCurrentWave(currentSectionWave).SpawnPositions;
 
-                enemySpawner.SpawnEnemyWave(GetCurrentSection().GetCurrentWave(currentSectionWave), spawnPositions, spawnBehavior, movementBehavior);
+                enemySpawner.SpawnEnemyWave(currentSection.GetCurrentWave(currentSectionWave), spawnPositions, spawnBehavior, movementBehavior);
                 Debug.Log("SPAWNED WAVE");
                 waveCountdownTime = 0;
                 currentSectionWave++;
                 spawnObject = false;
             }
 
-            if (GetCurrentSection().LevelOjectLayout != null)
+            if (currentSection.LevelOjectLayout != null)
             {
-                var objectInfo = GetCurrentSection().LevelOjectLayout.SpawnObjectInfo[currentObjectSpawn];
+                var objectInfo = currentSection.LevelOjectLayout.SpawnObjectInfo[currentObjectSpawn];
                 if (objectSpawnTime >= objectInfo.timeBeforeSpawn)
                 {
                     var position = new Vector3(objectInfo.spawnPosition.x, FindObjectOfType<Player>().transform.position.y + 25, 0);
@@ -88,7 +94,7 @@ public class Level : MonoBehaviour
         bool sectionCompleted = currentWave == null && enemySpawner.waveCompleted;
         if (sectionCompleted)
         {
-            currentSection++;
+            currentSectionNumber++;
             currentSectionWave = 0;
         }
         currentWave = null;
@@ -96,8 +102,9 @@ public class Level : MonoBehaviour
 
     private LevelSectionInformation GetCurrentSection()
     {
-        if (currentSection >= levelSectionsInfo.Length) return null;
-        var section = levelSectionsInfo[currentSection]; // Hur kollar vi när currentsection är över?
+        if (levelSectionsInfo == null) return null; 
+        if (currentSectionNumber >= levelSectionsInfo.Length) return null;
+        var section = levelSectionsInfo[currentSectionNumber]; // Hur kollar vi när currentsection är över?
         return section;
     }
 
@@ -107,16 +114,15 @@ public class Level : MonoBehaviour
         {
             if (i == 0)
             {
-                var background = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
-                backgroundImages.Add(background);
+                paralaxxBackground = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
+                backgroundImages.Add(paralaxxBackground);
             }
             else
             {
-                var background = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
-                background.SetActive(false);
-                backgroundImages.Add(background);
+                paralaxxBackground = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
+                paralaxxBackground.SetActive(false);
+                backgroundImages.Add(paralaxxBackground);
             }
-
         }
         //for (int i = 0; i < levelSectionsInfo.Length; i++)
         //{
@@ -130,73 +136,82 @@ public class Level : MonoBehaviour
         //    background.
         //}
     }
+}
 
-    private void SpawnWorld()
+
+//private void AddStartBackground(int i)
+//{
+//    GameObject startSprite = new GameObject();
+//    SpriteRenderer startSpriteRenderer = startSprite.AddComponent<SpriteRenderer>();
+//    startSpriteRenderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
+//    startSprite.name = $"BeginningSprite";
+//    startSprite.transform.position = new Vector3(0, -startSpriteRenderer.size.y / 2, 4);
+//    startSprite.AddComponent<MarkedForDestroy>();
+//}
+
+/* Gammalt system som styrde bland annat hur lång nivån skulle vara_________
+ * 
+private float[] sectionDistances;
+private float sectionDistanceMoved = 0;
+private void SpawnWorld()
+{
+    float sectionLength = 0;
+
+    foreach (var target in FindObjectsOfType<MarkedForDestroy>())
     {
-        float sectionLength = 0;
-
-        foreach (var target in FindObjectsOfType<MarkedForDestroy>())
-        {
-            if (target.gameObject == null) return;
-            //UnityEditor.EditorApplication.delayCall += () => { DestroyImmediate(target.gameObject); };
-        }
-
-        if (levelSectionsInfo[0] == null) return;
-        float distanceBetweenSprites = 0;
-
-        sectionDistances = new float[levelSectionsInfo.Length];
-
-        for (int i = 0; i < levelSectionsInfo.Length; i++)
-        {
-            sectionLength = 0;
-            //renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
-            int numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
-            //var waveType = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveType;
-
-            //if (waveType == WaveType.Bosswave)
-            //{
-            //    numberOfBackground = levelSectionsInfo[i].GetSectionLength();
-            //}
-            //else if (waveType == WaveType.Minionwave)
-            //{
-                numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
-            //}
-
-            for (int j = 0; j < numberOfBackground; j++)
-            {
-                GameObject background = new GameObject();
-                SpriteRenderer renderer = background.AddComponent<SpriteRenderer>();
-                renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
-                background.name = $"Section {i}";
-
-                if (i == 0 && j == 0)
-                {
-                    background.transform.position = new Vector3(0, renderer.size.y / 2, 4);
-                    distanceBetweenSprites += renderer.size.y / 2;
-
-                    AddStartBackground(i);
-                }
-                else
-                    background.transform.position = new Vector3(0, distanceBetweenSprites, 4);
-
-                background.AddComponent<MarkedForDestroy>();
-                distanceBetweenSprites += renderer.size.y;
-                sectionLength += renderer.size.y;
-            }
-            sectionDistances[i] = sectionLength;
-        }
+        if (target.gameObject == null) return;
+        //UnityEditor.EditorApplication.delayCall += () => { DestroyImmediate(target.gameObject); };
     }
 
-    private void AddStartBackground(int i)
+    if (levelSectionsInfo[0] == null) return;
+    float distanceBetweenSprites = 0;
+
+    sectionDistances = new float[levelSectionsInfo.Length];
+
+    for (int i = 0; i < levelSectionsInfo.Length; i++)
     {
-        GameObject startSprite = new GameObject();
-        SpriteRenderer startSpriteRenderer = startSprite.AddComponent<SpriteRenderer>();
-        startSpriteRenderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
-        startSprite.name = $"BeginningSprite";
-        startSprite.transform.position = new Vector3(0, -startSpriteRenderer.size.y / 2, 4);
-        startSprite.AddComponent<MarkedForDestroy>();
+        sectionLength = 0;
+        //renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
+        int numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
+        //var waveType = GetCurrentSection().GetCurrentWave(currentSectionWave).WaveType;
+
+        //if (waveType == WaveType.Bosswave)
+        //{
+        //    numberOfBackground = levelSectionsInfo[i].GetSectionLength();
+        //}
+        //else if (waveType == WaveType.Minionwave)
+        //{
+        numberOfBackground = levelSectionsInfo[i].GetSectionLength() * GameManager.GAMESPEED;
+        //}
+
+        for (int j = 0; j < numberOfBackground; j++)
+        {
+            GameObject background = new GameObject();
+            SpriteRenderer renderer = background.AddComponent<SpriteRenderer>();
+            renderer.sprite = levelSectionsInfo[i].GetBackgroundSprite();
+            background.name = $"Section {i}";
+
+            if (i == 0 && j == 0)
+            {
+                background.transform.position = new Vector3(0, renderer.size.y / 2, 4);
+                distanceBetweenSprites += renderer.size.y / 2;
+
+                AddStartBackground(i);
+            }
+            else
+                background.transform.position = new Vector3(0, distanceBetweenSprites, 4);
+
+            background.AddComponent<MarkedForDestroy>();
+            distanceBetweenSprites += renderer.size.y;
+            sectionLength += renderer.size.y;
+        }
+        sectionDistances[i] = sectionLength;
     }
 }
+*/
+
+
+
 
 //bool sectionCompleted = cameraY >= currentSectionLength;
 // if (GetCurrentSection().GetCurrentWave(currentSectionWave - 1).WaveType == WaveType.Bosswave)

@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UiManager : MonoBehaviour
     public TMP_Text NextWave;
     public TMP_Text hitMultiplier = null;
     public TMP_Text timeText = null;
+
 
     private Level level = null;
     private Player player = null;

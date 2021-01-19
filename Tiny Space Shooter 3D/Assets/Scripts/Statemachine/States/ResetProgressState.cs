@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class ResetProgressState : State<ApplicationStates>
 {
+    private EnemySpawner enemyspawner = null;
+    private Level level = null;
+
     public override void OnStateEnter()
     {
-        Debug.Log("ResetProgressState");
+        enemyspawner = GameObject.FindObjectOfType<EnemySpawner>();
+        level = GameObject.FindObjectOfType<Level>();
+        level.ResetLevel();
+        enemyspawner.ResetSpawner();
+        context.ChangeState(ApplicationStates.SetUpLevelState);
     }
 
     public override void OnStateExit()
