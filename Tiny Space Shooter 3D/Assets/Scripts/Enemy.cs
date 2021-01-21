@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 enum ShootingBehavior
 {
@@ -125,8 +126,6 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     //    {
     //        movementBehavior = behavior;
     //    }
-
-        
     //}
 
     public void GetMovementPositions(Vector3[] positions)

@@ -10,7 +10,7 @@ public class UiHandler : MonoBehaviour
     [SerializeField] private GameObject MapSelectionPanel = null;
     [SerializeField] private GameObject PausePanel = null;
 
-    public event Action selectLevel;
+    public event Action<int> selectLevel;
     public Button levelSelectButton = null;
 
     public void MainMenu()
@@ -25,7 +25,7 @@ public class UiHandler : MonoBehaviour
         MainMenuPanel.SetActive(false);
     }
 
-    public void GamePlay(int levelToPlay)
+    public void GamePlay()
     {
         MapSelectionPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
@@ -38,6 +38,6 @@ public class UiHandler : MonoBehaviour
 
     public void SelectLevel(int level)
     {
-        selectLevel?.Invoke();
+        selectLevel?.Invoke(level);
     }
 }

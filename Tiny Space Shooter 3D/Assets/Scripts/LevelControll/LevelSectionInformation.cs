@@ -18,11 +18,11 @@ public class LevelSectionInformation : ScriptableObject
         var wave = waves[currentWave];
         return wave;
     }
+    public int NumberOfWaves => waves.Length;
     public Sprite GetBackgroundSprite() => backGroundSprite;
     public GameObject BackgroundImage { get => backgroundImage; }
     public LevelObjectLayout LevelOjectLayout { get => levelOjectLayout; }
     //public float GetBackgroundSpriteLength() => backGroundSprite.texture.height / 100; //This may not work as intended
     //public int GetSectionLength() => sectionLength;
-    //public int NumberOfWaves => waves.Length;
     //public GameObject[] GetPowerUps() => powerups;
 }

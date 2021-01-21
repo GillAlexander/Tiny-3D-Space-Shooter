@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     private int rotationY = 0;
     public AnimationCurve spinCurve;
 
+    public void EnablePlayerControll() => playerHasControll = true;
+    public void DisablePlayerControll() => playerHasControll = false;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -51,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     private void ShootMainWeapon()
     {
+        if (!playerHasControll) return;
         if (timer >= fireCooldown)
         {
             player.Fire();
@@ -66,9 +70,6 @@ public class PlayerController : MonoBehaviour
         player.transform.rotation = Quaternion.Lerp(player.transform.rotation, newRotation, spinCurve.Evaluate(Time.deltaTime));
         yield return null;
     }
-
-    public void EnablePlayerControll() => playerHasControll = true;
-    public void DisablePlayerControll() => playerHasControll = false;  
 }
 
 //var cursorPositionModified = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,

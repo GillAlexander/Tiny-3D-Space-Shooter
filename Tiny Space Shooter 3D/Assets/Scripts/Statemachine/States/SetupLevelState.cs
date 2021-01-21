@@ -10,8 +10,14 @@ public class SetupLevelState : State<ApplicationStates>
     public override void OnStateEnter()
     {
         level = GameObject.FindObjectOfType<Level>();
-        levels = Resources.LoadAll<LevelSectionInformation>("Level1");
+        var levelToLoad = level.LevelToLoad;
+        levels = Resources.LoadAll<LevelSectionInformation>($"Level{levelToLoad}");
+
+        if (levels.Length == 0) Debug.LogError("Missing level to load in the Resource Folder");
+
         level.FetchLevelInfo(levels);
+
+        context.ChangeState(ApplicationStates.GamePlayState);
     }
 
     public override void OnStateExit()

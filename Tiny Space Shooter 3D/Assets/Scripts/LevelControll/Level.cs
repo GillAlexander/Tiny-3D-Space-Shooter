@@ -10,12 +10,18 @@ public class Level : MonoBehaviour
     [SerializeField] private GameObject positionChecker = null;
     private EnemySpawner enemySpawner = null;
     private EnemyWave currentWave = null;
+    private GameObject paralaxxBackground = null;
+    private List<GameObject> backgroundImages = new List<GameObject>();
     private int currentSectionNumber = 0;
     private int currentSectionWave = 0;
+    private int currentWaveNumber = 0;
+    private int levelToLoad = 0;
+    private float waveCountdownTime = 0;
+    private float objectSpawnTime = 0;
+    [HideInInspector] public float timeUntilNextWave;
+    private List<GameObject> levelObjectList = new List<GameObject>();
 
-    private GameObject paralaxxBackground = null;
-
-    private List<GameObject> backgroundImages = new List<GameObject>();
+    public int LevelToLoad { get => levelToLoad; set => levelToLoad = value; }
 
     public void ResetLevel()
     {
@@ -23,6 +29,7 @@ public class Level : MonoBehaviour
         objectSpawnTime = 0;
         timeUntilNextWave = 0;
         levelSectionsInfo = null;
+        currentWaveNumber = 0;
         Destroy(paralaxxBackground);
     }
 
@@ -32,9 +39,10 @@ public class Level : MonoBehaviour
         SpawnParallaxBackground();
     }
 
-    private float waveCountdownTime = 0;
-    private float objectSpawnTime = 0;
-    [HideInInspector] public float timeUntilNextWave;
+    public void NewLevelToLoad(int newLevel)
+    {
+        levelToLoad = newLevel;
+    }
 
     private void Awake()
     {
@@ -48,6 +56,19 @@ public class Level : MonoBehaviour
 
     bool spawnObject = false;
     int currentObjectSpawn = 0;
+
+    public bool SpawnedAllTheWaves()
+    {
+        int numberOfWaves = 0;
+
+        for (int i = 0; i < levelSectionsInfo.Length; i++)
+            numberOfWaves += levelSectionsInfo[i].NumberOfWaves;
+
+        if (currentWaveNumber == numberOfWaves)
+            return true;
+        else
+            return false;
+    }
 
     private void Update()
     {
@@ -66,6 +87,7 @@ public class Level : MonoBehaviour
 
             if (spawnSectionWave)
             {
+                currentWaveNumber++;
                 var spawnBehavior = currentSection.GetCurrentWave(currentSectionWave).SpawnBehavior;
                 var movementBehavior = currentSection.GetCurrentWave(currentSectionWave).MovementBehavior;
                 var spawnPositions = currentSection.GetCurrentWave(currentSectionWave).SpawnPositions;
@@ -84,6 +106,7 @@ public class Level : MonoBehaviour
                 {
                     var position = new Vector3(objectInfo.spawnPosition.x, FindObjectOfType<Player>().transform.position.y + 25, 0);
                     var spawnedObject = Instantiate(objectInfo.objectToSpawn, position, Quaternion.identity);
+                    levelObjectList.Add(spawnedObject);
                     spawnedObject.transform.parent = positionChecker.transform;
                     currentObjectSpawn++;
                     objectSpawnTime = 0;
@@ -98,6 +121,25 @@ public class Level : MonoBehaviour
             currentSectionWave = 0;
         }
         currentWave = null;
+    }
+    public void CleanUpLevelObjects()
+    {
+        StartCoroutine(CleanUpLevelObjectsCoroutine());
+    }
+
+    public IEnumerator CleanUpLevelObjectsCoroutine()
+    {
+        for (int i = 0; i < levelObjectList.Count; i++)
+        {
+            levelObjectList[i].SetActive(false);
+        }
+        yield return new WaitForSeconds(0.5f);
+
+        for (int i = 0; i < levelObjectList.Count; i++)
+        {
+            Destroy(levelObjectList[i]);
+            yield return new WaitForSeconds(0.15f);
+        }
     }
 
     private LevelSectionInformation GetCurrentSection()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -8,15 +9,20 @@ public class EnemySpawner : MonoBehaviour
     private Player player = null;
     public bool waveCompleted = false;
 
+    private List<Coroutine> coroutines = new List<Coroutine>();
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
+    public bool AllEnemiesDefeated() => spawnedEnemies.Count == 0 && waveCompleted == true? true : false;
+
     public void SpawnEnemyWave(EnemyWave wave, Vector3[] spawnPos, SpawnBehaviors spawnbehavior, MovementBehaviors movementBehavior)
     {
         waveCompleted = false;
-        StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
+         StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
     }
 
     internal void ResetSpawner()
@@ -33,6 +39,7 @@ public class EnemySpawner : MonoBehaviour
             var enemyObject = Instantiate(currentWave.GetEnemyPrefab(), GetSpawnPosition(SBehavior, spawnPos), Quaternion.identity);
             enemyObject.transform.parent = this.transform;
             var enemy = enemyObject.GetComponent<Enemy>();
+            spawnedEnemies.Add(enemyObject);
             enemy.GetMovementBehavior(MBehavior);
             enemy.GetMovementPositions(currentWave.PositionToMoveTo);
             enemy.GetPlayer(player);
@@ -64,6 +71,22 @@ public class EnemySpawner : MonoBehaviour
         }
         
         return spawnPosition;
+    }
+
+    private void LateUpdate()
+    {
+        CheckListForNullObjects();
+    }
+
+    private void CheckListForNullObjects()
+    {
+        for (int i = 0; i < spawnedEnemies.Count; i++)
+        {
+            if (spawnedEnemies[i] == null)
+            {
+                spawnedEnemies.RemoveAt(i);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
