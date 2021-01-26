@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private bool playerHasControll = false;
+    public bool gameIsPaused = false; // CHANGE
     public float PLAYERDELAYVALUE = 0;
     [SerializeField] private float fireCooldown = 0.25f;
     private float timer = 0;
@@ -48,6 +49,14 @@ public class PlayerController : MonoBehaviour
         {
             playerHasControll = !playerHasControll;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //Pause the game
+
+            ServiceLocator.ResolveContainer<IPause>().Pause();
+        }
+
 
         ShootMainWeapon();
     }

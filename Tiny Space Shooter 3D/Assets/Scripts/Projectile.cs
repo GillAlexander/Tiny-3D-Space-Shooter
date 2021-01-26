@@ -48,13 +48,12 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var damageableObject = other.gameObject.GetComponentInParent<DamageAbleObject>();
-        Debug.Log(damageableObject);
         if (damageableObject != null)
         {
             damageableObject.TakeDamage(damage);
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
-            FindObjectOfType<UiManager>().AddHitCount();
-            FindObjectOfType<UiManager>().ShakeHitMultiplier();
+            FindObjectOfType<UiHandler>().AddHitCount();
+            FindObjectOfType<UiHandler>().ShakeHitMultiplier();
             //hitSound.transform.parent = null;
             //hitSound.Play();
             Destroy(this.gameObject);

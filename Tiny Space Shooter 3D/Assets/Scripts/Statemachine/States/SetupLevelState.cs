@@ -12,11 +12,11 @@ public class SetupLevelState : State<ApplicationStates>
         level = GameObject.FindObjectOfType<Level>();
         var levelToLoad = level.LevelToLoad;
         levels = Resources.LoadAll<LevelSectionInformation>($"Level{levelToLoad}");
-
+        
         if (levels.Length == 0) Debug.LogError("Missing level to load in the Resource Folder");
 
         level.FetchLevelInfo(levels);
-
+        levels = null;
         context.ChangeState(ApplicationStates.GamePlayState);
     }
 

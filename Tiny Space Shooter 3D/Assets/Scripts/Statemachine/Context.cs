@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -30,6 +31,7 @@ public class Context<T> : MonoBehaviour
             this.state.OnStateExit();
         }
         this.state = states[state];
+        FindObjectOfType<UiHandler>().currentStateDisplay.text = states[state].ToString();
         this.state.SetContext(this);
         this.state.OnStateEnter();
     }

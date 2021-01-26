@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IPause
 {
     private int currentSpawnNumber;
     private Player player = null;
@@ -23,6 +23,11 @@ public class EnemySpawner : MonoBehaviour
     {
         waveCompleted = false;
          StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
+    }
+
+    public void Pause()
+    {
+        Debug.Log(this);
     }
 
     internal void ResetSpawner()

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class Level : MonoBehaviour
+public class Level : MonoBehaviour, IPause
 {
     [SerializeField] private LevelSectionInformation[] levelSectionsInfo = null;
     [SerializeField] private GameObject positionChecker = null;
@@ -20,17 +20,23 @@ public class Level : MonoBehaviour
     private float objectSpawnTime = 0;
     [HideInInspector] public float timeUntilNextWave;
     private List<GameObject> levelObjectList = new List<GameObject>();
-
     public int LevelToLoad { get => levelToLoad; set => levelToLoad = value; }
 
     public void ResetLevel()
     {
         waveCountdownTime = 0;
+        currentSectionWave = 0;
         objectSpawnTime = 0;
         timeUntilNextWave = 0;
         levelSectionsInfo = null;
         currentWaveNumber = 0;
-        Destroy(paralaxxBackground);
+        currentSectionNumber = 0;
+        Destroy(paralaxxBackground.gameObject);
+    }
+
+    public void Pause()
+    {
+        Debug.Log(this);
     }
 
     public void FetchLevelInfo(LevelSectionInformation[] newLevelSectionInfo)
@@ -72,12 +78,11 @@ public class Level : MonoBehaviour
 
     private void Update()
     {
-        waveCountdownTime += Time.deltaTime;
-        objectSpawnTime += Time.deltaTime;
+        UpdateTime();
 
         var currentSection = GetCurrentSection();
 
-        if (GetCurrentSection() != null)
+        if (currentSection != null)
             currentWave = currentSection.GetCurrentWave(currentSectionWave);
 
         if (currentWave != null)
@@ -122,6 +127,13 @@ public class Level : MonoBehaviour
         }
         currentWave = null;
     }
+
+    private void UpdateTime()
+    {
+        waveCountdownTime += Time.deltaTime;
+        objectSpawnTime += Time.deltaTime;
+    }
+
     public void CleanUpLevelObjects()
     {
         StartCoroutine(CleanUpLevelObjectsCoroutine());

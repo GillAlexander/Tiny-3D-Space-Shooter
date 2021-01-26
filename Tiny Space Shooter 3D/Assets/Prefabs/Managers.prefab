@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 945188252}
   - component: {fileID: 945188253}
   - component: {fileID: 6936010719501169830}
+  - component: {fileID: 3366452243306713588}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -63,6 +64,12 @@ MonoBehaviour:
   MainMenuPanel: {fileID: 0}
   MapSelectionPanel: {fileID: 0}
   PausePanel: {fileID: 0}
+  currentStateDisplay: {fileID: 0}
+  levelSelectButton: {fileID: 0}
+  lifeText: {fileID: 0}
+  hitMultiplier: {fileID: 0}
+  timeText: {fileID: 0}
+  hitThresholdTime: 0
 --- !u!114 &945188253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,5 +92,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bf44e7568d29d545aae464bc916702b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3366452243306713588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731838833891741431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee4b2852069a3ce4b965b7aa0eda2202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

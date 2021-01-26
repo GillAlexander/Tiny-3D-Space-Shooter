@@ -143,6 +143,7 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     public void Death()
     {
         deathSound.transform.parent = null;
+        deathSound.gameObject.AddComponent<DestroyAfterTime>();
         deathSound.Play();
         Destroy(this.gameObject);
         particlePlayer.FetchAndPlayParticleAtPosition(Particles.EnemyDeath, transform.position);

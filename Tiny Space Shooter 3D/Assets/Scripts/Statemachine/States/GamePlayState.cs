@@ -30,5 +30,4 @@ public class GamePlayState : State<ApplicationStates>
             context.ChangeState(ApplicationStates.Menu);
         }
     }
-
 }
