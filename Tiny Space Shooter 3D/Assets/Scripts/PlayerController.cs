@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private float timer = 0;
     private Player player = null;
 
-    [SerializeField] private float playerRotationThreshHold = 1f;
+    //[SerializeField] private float playerRotationThreshHold = 1f;
     public AudioSource laserSound = null;
 
     private int rotationY = 0;
@@ -53,10 +53,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Pause the game
+            GameManager.isPaused = !GameManager.isPaused;
 
-            ServiceLocator.ResolveContainer<IPause>().Pause();
+                if (GameManager.isPaused)
+                {
+                    Time.timeScale = 0;
+                }
+                else
+                    Time.timeScale = 1;
         }
-
 
         ShootMainWeapon();
     }

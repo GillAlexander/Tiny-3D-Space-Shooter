@@ -30,12 +30,12 @@ public class EnemyWave : ScriptableObject
     
     [Header("Spawn Behavior")]
     [SerializeField] private float timeBetweenSpawns = 0;
-    [SerializeField] private SpawnBehaviors spawnBehavior;
-    [SerializeField] private Vector3[] spawnPositions;
+    [SerializeField] private SpawnBehaviors spawnBehavior = default;
+    [SerializeField] private Vector3[] spawnPositions = default;
 
     [Header("Movement Behavior")]
-    [SerializeField] private MovementBehaviors movementBehavior;
-    [SerializeField] private Vector3[] positionToMoveTo;
+    [SerializeField] private MovementBehaviors movementBehavior = default;
+    [SerializeField] private Vector3[] positionToMoveTo = default;
 
     [Header("Wave settings")]
     [Tooltip("How long before next wave of enemies to spawn")]

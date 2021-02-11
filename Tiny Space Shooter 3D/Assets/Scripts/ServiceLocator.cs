@@ -7,27 +7,38 @@ public static class ServiceLocator
 {
     private static readonly Dictionary<Type, object> ServicesList = new Dictionary<Type, object>();
 
-    private static readonly UnityContainer serviceContainer = null;
+    //public static readonly UnityContainer serviceContainer = new UnityContainer();
+
+    //public static void RegisterInstance<T>(object instance)
+    //{
+    //    ServicesList.Add(T, instance);
+    //}
+
+    // UNITYCONTAINER FUNGERAR INTE FÖR MONOHBEHAVIOR
     
-    public static void RegisterContainer<T>(object instance)
-    {
-        // Registrerar instance till typen T och castar instance till T
-        serviceContainer.RegisterInstance<T>((T)instance); 
-    }
+    //public static void RegisterContainer<T>(object instance)
+    //{
+    //    ServicesList
+    //}
+    //public static void RegisterContainer<T>(string name, object instance)
+    //{
+    //    // Registrerar instance till typen T och castar instance till T
+    //    serviceContainer.RegisterInstance(name, instance); 
+    //}
 
-    public static IEnumerable ResolveAllContainer<T>()
-    {
-        // Resolverar allt med typen T i containern
-        return serviceContainer.ResolveAll<T>();
-    }
+    //public static IEnumerable<T> ResolveAllContainer<T>()
+    //{
+    //    // Resolverar allt med typen T i containern
+    //    return serviceContainer.ResolveAll<T>();
+    //}
 
-    public static T ResolveContainer<T>()
-    {
-        return serviceContainer.Resolve<T>();
-    }
+    //public static T ResolveContainer<T>()
+    //{
+    //    return serviceContainer.Resolve<T>();
+    //}
 
-    public static void ResetContainer()
-    {
-        serviceContainer.Dispose();
-    }
+    //public static void ResetContainer()
+    //{
+    //    serviceContainer.Dispose();
+    //}
 }

@@ -25,9 +25,16 @@ public class EnemySpawner : MonoBehaviour, IPause
          StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
     }
 
-    public void Pause()
+    public void Pause(bool paused)
     {
-        Debug.Log(this);
+        if (paused)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     internal void ResetSpawner()
@@ -92,16 +99,5 @@ public class EnemySpawner : MonoBehaviour, IPause
                 spawnedEnemies.RemoveAt(i);
             }
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        //if (spawnPositions == null) return;
-
-        //foreach (Vector3 position in spawnPositions)
-        //{
-        //    Gizmos.color = Color.green;
-        //    Gizmos.DrawSphere(transform.position + position, 0.5f);
-        //}
     }
 }

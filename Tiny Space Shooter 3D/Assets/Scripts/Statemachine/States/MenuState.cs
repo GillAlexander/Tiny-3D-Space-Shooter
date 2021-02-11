@@ -7,24 +7,22 @@ using UnityEngine.UI;
 public class MenuState : State<ApplicationStates>
 {
     private UiHandler uiHandler = null;
-    private Level level = null;
     private PlayerController playerController = null;
-    [SerializeField] private Button button = null;
+    private Level level = null;
 
     public override void OnStateEnter()
     {
         uiHandler = GameObject.FindObjectOfType<UiHandler>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
         level = GameObject.FindObjectOfType<Level>();
-        playerController.DisablePlayerControll();
 
-        uiHandler.MainMenu();
+        playerController.DisablePlayerControll();
+        uiHandler.DisplayMainMenu();
         uiHandler.selectLevel += ResetProgress;
     }
 
     public override void OnStateExit()
     {
-
         uiHandler.selectLevel -= ResetProgress;
     }
 
@@ -36,7 +34,7 @@ public class MenuState : State<ApplicationStates>
     private void ResetProgress(int levelSelected)
     {
         level.NewLevelToLoad(levelSelected);
-        uiHandler.GamePlay();
+        uiHandler.DisplayGameplay();
         context.ChangeState(ApplicationStates.ResetProgressState);
     }
 

@@ -20,7 +20,6 @@ public class Context<T> : MonoBehaviour
 
     public void ChangeState(T state)
     {
-        Debug.Log($"Transition to {state}");
         this.TransitionTo(state);
     }
 

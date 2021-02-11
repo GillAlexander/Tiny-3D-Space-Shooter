@@ -34,9 +34,9 @@ public class Level : MonoBehaviour, IPause
         Destroy(paralaxxBackground.gameObject);
     }
 
-    public void Pause()
+    public void Pause(bool paused)
     {
-        Debug.Log(this);
+
     }
 
     public void FetchLevelInfo(LevelSectionInformation[] newLevelSectionInfo)
@@ -60,7 +60,6 @@ public class Level : MonoBehaviour, IPause
         SpawnParallaxBackground();
     }
 
-    bool spawnObject = false;
     int currentObjectSpawn = 0;
 
     public bool SpawnedAllTheWaves()
@@ -78,6 +77,8 @@ public class Level : MonoBehaviour, IPause
 
     private void Update()
     {
+        if (GameManager.isPaused) return;
+
         UpdateTime();
 
         var currentSection = GetCurrentSection();
@@ -101,7 +102,6 @@ public class Level : MonoBehaviour, IPause
                 Debug.Log("SPAWNED WAVE");
                 waveCountdownTime = 0;
                 currentSectionWave++;
-                spawnObject = false;
             }
 
             if (currentSection.LevelOjectLayout != null)

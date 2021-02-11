@@ -154,7 +154,7 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         var player = other.gameObject.GetComponentInParent<Player>();
         if (player != null)
         {
-            player.TakeDamage(1);
+            player.TakeDamage(damage);
         }
     }
 

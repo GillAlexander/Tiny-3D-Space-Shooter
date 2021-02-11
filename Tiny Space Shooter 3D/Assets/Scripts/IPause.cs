@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPause 
 {
-    void Pause();
+    void Pause(bool paused);
 }

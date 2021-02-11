@@ -9,7 +9,8 @@ public class UiHandler : MonoBehaviour
     [SerializeField] private GameObject MainMenuPanel = null;
     [SerializeField] private GameObject MapSelectionPanel = null;
     [SerializeField] private GameObject PausePanel = null;
-
+    [SerializeField] private GameObject IngameUiPanel = null;
+ 
     public TMP_Text currentStateDisplay = null; //DEBUG
 
     private Level level = null;
@@ -25,25 +26,28 @@ public class UiHandler : MonoBehaviour
     private bool hasHitCombo = false;
     private int hitCount = 0;
 
-    public void MainMenu()
+    public void DisplayMainMenu()
     {
         MainMenuPanel.SetActive(true);
         MapSelectionPanel.SetActive(false);
+        IngameUiPanel.SetActive(false);
     }
 
-    public void MapSelection()
+    public void DisplayMapSelection()
     {
         MapSelectionPanel.SetActive(true);
         MainMenuPanel.SetActive(false);
+        IngameUiPanel.SetActive(false);
     }
 
-    public void GamePlay()
+    public void DisplayGameplay()
     {
         MapSelectionPanel.SetActive(false);
         MainMenuPanel.SetActive(false);
+        IngameUiPanel.SetActive(true);
     }
 
-    public void PauseMenu()
+    public void DisplayPause()
     {
         PausePanel.SetActive(true);
     }

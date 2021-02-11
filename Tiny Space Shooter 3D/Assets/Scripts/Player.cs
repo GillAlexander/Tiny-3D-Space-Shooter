@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, DamageAbleObject
 {
-    private float damage = 20f;
-    private float powerupTime = 5f;
+    //private float damage = 20f;
+    //private float powerupTime = 5f;
     private float healthPoints = 10;
 
     [SerializeField] private GameObject bullet1 = null;

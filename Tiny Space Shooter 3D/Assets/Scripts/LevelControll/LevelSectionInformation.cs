@@ -9,7 +9,7 @@ public class LevelSectionInformation : ScriptableObject
     [SerializeField] private Sprite backGroundSprite = null;
     [SerializeField] private GameObject backgroundImage = null;
     [SerializeField] private EnemyWave[] waves = null;
-    [SerializeField] private int sectionLength = 1;
+    //[SerializeField] private int sectionLength = 1;
     //[SerializeField] private GameObject[] powerups;
     [SerializeField] private LevelObjectLayout levelOjectLayout = null;
     public EnemyWave GetCurrentWave(int currentWave)
