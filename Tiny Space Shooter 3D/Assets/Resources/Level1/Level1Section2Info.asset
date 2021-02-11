@@ -15,7 +15,6 @@ MonoBehaviour:
   backGroundSprite: {fileID: 0}
   backgroundImage: {fileID: 2879158032454880613, guid: 29d93b01db2e989449ffdac15a7df350, type: 3}
   waves:
+  - {fileID: 11400000, guid: 4d8fca8c85d3c244f823a44d44618abb, type: 2}
   - {fileID: 11400000, guid: 308ba0c17186aa84c8de20cdefd3b5a8, type: 2}
-  - {fileID: 11400000, guid: 308ba0c17186aa84c8de20cdefd3b5a8, type: 2}
-  sectionLength: 1
   levelOjectLayout: {fileID: 11400000, guid: d503f3ecfd04a1c4b8f9b96b57e0887c, type: 2}

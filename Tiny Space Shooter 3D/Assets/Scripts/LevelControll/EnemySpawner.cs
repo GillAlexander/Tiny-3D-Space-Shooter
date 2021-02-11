@@ -12,17 +12,22 @@ public class EnemySpawner : MonoBehaviour, IPause
     private List<Coroutine> coroutines = new List<Coroutine>();
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
+    private int numberOfTotalEnemies = 0;
+    private int numberOfEnemesSpawned = 0;
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
-    public bool AllEnemiesDefeated() => spawnedEnemies.Count == 0 && waveCompleted == true? true : false;
+    public bool AllEnemiesDefeated() => spawnedEnemies.Count == 0 && waveCompleted && numberOfTotalEnemies == numberOfEnemesSpawned == true ? true : false;
 
     public void SpawnEnemyWave(EnemyWave wave, Vector3[] spawnPos, SpawnBehaviors spawnbehavior, MovementBehaviors movementBehavior)
     {
         waveCompleted = false;
          StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
+
+        numberOfTotalEnemies += wave.NumberOfEnemies;
     }
 
     public void Pause(bool paused)
@@ -52,6 +57,7 @@ public class EnemySpawner : MonoBehaviour, IPause
             enemyObject.transform.parent = this.transform;
             var enemy = enemyObject.GetComponent<Enemy>();
             spawnedEnemies.Add(enemyObject);
+            numberOfEnemesSpawned++;
             enemy.GetMovementBehavior(MBehavior);
             enemy.GetMovementPositions(currentWave.PositionToMoveTo);
             enemy.GetPlayer(player);
