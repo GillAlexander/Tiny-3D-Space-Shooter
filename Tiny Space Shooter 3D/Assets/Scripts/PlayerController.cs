@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fireCooldown = 0.25f;
     private float timer = 0;
     private Player player = null;
+    private Vector3 idlePosition = Vector3.zero;
+    private Vector3 playerPos = Vector3.zero;
 
     //[SerializeField] private float playerRotationThreshHold = 1f;
     public AudioSource laserSound = null;
@@ -27,17 +29,20 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        idlePosition = Camera.main.transform.position + Vector3.forward * 25;
+        playerPos = player.transform.position;
+
         timer += Time.deltaTime;
         var cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (playerHasControll)
         {
-                player.transform.position = Vector3.Lerp(player.transform.position, 
-                                                                            new Vector3(cursorPosition.x, cursorPosition.y + 2.5f, cursorPosition.z) + Vector3.forward * 25,
-                                                                            Time.deltaTime * PLAYERDELAYVALUE);
+            player.transform.position = Vector3.Lerp(playerPos, new Vector3(cursorPosition.x, 
+                                                                            cursorPosition.y + 2.5f,
+                                                                            cursorPosition.z) + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
         }
         else
-            player.transform.position = Camera.main.transform.position + Vector3.forward * 25;
+            player.transform.position = Vector3.Lerp(playerPos, idlePosition, Time.deltaTime * PLAYERDELAYVALUE);
 
         if (Input.GetKeyDown(KeyCode.T))
         {

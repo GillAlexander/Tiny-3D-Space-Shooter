@@ -27,7 +27,7 @@ public class GamePlayState : State<ApplicationStates>
         if (level.SpawnedAllTheWaves() && enemySpawner.AllEnemiesDefeated())
         {
             level.CleanUpLevelObjects();
-            context.ChangeState(ApplicationStates.Menu);
+            context.ChangeState(ApplicationStates.SummaryState);
         }
     }
 }

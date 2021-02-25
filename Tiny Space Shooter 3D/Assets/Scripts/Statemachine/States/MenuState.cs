@@ -34,7 +34,7 @@ public class MenuState : State<ApplicationStates>
     private void ResetProgress(int levelSelected)
     {
         level.NewLevelToLoad(levelSelected);
-        uiHandler.DisplayGameplay();
+        uiHandler.DisplayGameplay(1,1);
         context.ChangeState(ApplicationStates.ResetProgressState);
     }
 
