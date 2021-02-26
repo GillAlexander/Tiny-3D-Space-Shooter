@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour, DamageAbleObject
 
     public AudioSource deathSound = null;
 
+    public event Action killedByPlayer;
+
     private void Awake()
     {
         particlePlayer = FindObjectOfType<ParticlePlayer>();
@@ -55,6 +57,7 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         if (dead)
         {
             Death();
+            killedByPlayer?.Invoke();
         }
 
 

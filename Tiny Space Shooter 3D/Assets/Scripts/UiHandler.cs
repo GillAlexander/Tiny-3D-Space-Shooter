@@ -30,6 +30,15 @@ public class UiHandler : MonoBehaviour
     private float hitTimer = 0;
     private bool hasHitCombo = false;
     private int hitCount = 0;
+    private int highestCombo = 0;
+
+    public void ResetUi()
+    {
+        hitTimer = 0;
+        hasHitCombo = false;
+        hitCount = 0;
+        highestCombo = 0;
+    }
 
     public void DisplayMainMenu()
     {
@@ -43,12 +52,10 @@ public class UiHandler : MonoBehaviour
         MapSelectionPanel.SetActive(true);
     }
 
-    public void DisplayGameplay(int enemiesKilled, int comboStreak)
+    public void DisplayGameplay()
     {
         HideAllUiPanels();
         IngameUiPanel.SetActive(true);
-        enemiesKilledText.text = $"Enemies Killed {enemiesKilled}/100";
-        comboText.text = $"Highest combo achived x{comboStreak}";
     }
 
     public void DisplayPause()
@@ -61,6 +68,11 @@ public class UiHandler : MonoBehaviour
     {
         HideAllUiPanels();
         SummaryPanel.SetActive(true);
+        var enemiesKilled = player.EnemiesKilled;
+        var numberOfEnemies = GameObject.FindObjectOfType<EnemySpawner>().NumberOfTotalEnemies;
+
+        enemiesKilledText.text = $"Enemies Killed {enemiesKilled}/{numberOfEnemies}";
+        comboText.text = $"Highest combo achived x{highestCombo}";
     }
 
     public void SelectLevel(int level)
@@ -104,6 +116,11 @@ public class UiHandler : MonoBehaviour
         hitMultiplier.text = $"Hits x{hitCount}";
         hitTimer = 0;
         hasHitCombo = true;
+     
+        if (hitCount > highestCombo)
+        {
+            highestCombo = hitCount;
+        }
     }
 
     public void ShakeHitMultiplier()

@@ -99,7 +99,7 @@ public class Level : MonoBehaviour, IPause
                 var spawnPositions = currentSection.GetCurrentWave(currentSectionWave).SpawnPositions;
 
                 enemySpawner.SpawnEnemyWave(currentSection.GetCurrentWave(currentSectionWave), spawnPositions, spawnBehavior, movementBehavior);
-                Debug.Log("SPAWNED WAVE");
+                //Debug.Log("SPAWNED WAVE");
                 waveCountdownTime = 0;
                 currentSectionWave++;
             }

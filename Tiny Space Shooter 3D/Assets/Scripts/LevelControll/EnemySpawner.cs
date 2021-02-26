@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour, IPause
+public class EnemySpawner : MonoBehaviour
 {
     private int currentSpawnNumber;
     private Player player = null;
@@ -15,39 +15,32 @@ public class EnemySpawner : MonoBehaviour, IPause
     private int numberOfTotalEnemies = 0;
     private int numberOfEnemesSpawned = 0;
 
+    public int NumberOfTotalEnemies { get => numberOfTotalEnemies; set => numberOfTotalEnemies = value; }
+
     private void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
-    public bool AllEnemiesDefeated() => spawnedEnemies.Count == 0 && waveCompleted && numberOfTotalEnemies == numberOfEnemesSpawned == true ? true : false;
+    public bool AllEnemiesDefeated() => spawnedEnemies.Count == 0 && waveCompleted && NumberOfTotalEnemies == numberOfEnemesSpawned == true ? true : false;
 
     public void SpawnEnemyWave(EnemyWave wave, Vector3[] spawnPos, SpawnBehaviors spawnbehavior, MovementBehaviors movementBehavior)
     {
         waveCompleted = false;
          StartCoroutine(SpawnWave(wave, spawnPos, spawnbehavior, movementBehavior));
 
-        numberOfTotalEnemies += wave.NumberOfEnemies;
-    }
-
-    public void Pause(bool paused)
-    {
-        if (paused)
-        {
-
-        }
-        else
-        {
-
-        }
+        NumberOfTotalEnemies += wave.NumberOfEnemies;
     }
 
     internal void ResetSpawner()
     {
         StopAllCoroutines();
         currentSpawnNumber = 0;
-        waveCompleted = false;  
-    }
+        waveCompleted = false;
+        numberOfTotalEnemies = 0;
+        numberOfEnemesSpawned = 0;
+}
+
 
     private IEnumerator SpawnWave(EnemyWave currentWave, Vector3[] spawnPos, SpawnBehaviors SBehavior, MovementBehaviors MBehavior)
     {
@@ -61,11 +54,14 @@ public class EnemySpawner : MonoBehaviour, IPause
             enemy.GetMovementBehavior(MBehavior);
             enemy.GetMovementPositions(currentWave.PositionToMoveTo);
             enemy.GetPlayer(player);
+            enemy.killedByPlayer += player.AddKillCount;
             yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
         }
         //currentSpawnNumber = 0; // Behöver fixas, currentspawnnumber behöver bli 0 när waven är slut men skall inte påverka nästa wave som spawnar
         waveCompleted = true;
     }
+
+
 
     private Vector3 GetSpawnPosition(SpawnBehaviors behavior, Vector3[] spawnPos)
     {
@@ -82,7 +78,7 @@ public class EnemySpawner : MonoBehaviour, IPause
                 {
                     currentSpawnNumber = 0;
                 }
-                Debug.Log($"CurrentSpawnNumber: {currentSpawnNumber}");
+                //Debug.Log($"CurrentSpawnNumber: {currentSpawnNumber}");
                 spawnPosition = spawnPos[currentSpawnNumber] + transform.position;
                 currentSpawnNumber++;
                 break;

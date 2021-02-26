@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Projectile : MonoBehaviour
     private float damage = 0;
     ParticlePlayer particlePlayer = null;
     public AudioSource hitSound = null;
+
 
     private void Awake()
     {
@@ -52,8 +54,10 @@ public class Projectile : MonoBehaviour
         {
             damageableObject.TakeDamage(damage);
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
+
             FindObjectOfType<UiHandler>().AddHitCount();
             FindObjectOfType<UiHandler>().ShakeHitMultiplier();
+
             //hitSound.transform.parent = null;
             //hitSound.Play();
             Destroy(this.gameObject);
