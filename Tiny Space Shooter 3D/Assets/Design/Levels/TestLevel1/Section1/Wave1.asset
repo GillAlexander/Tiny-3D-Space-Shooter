@@ -22,3 +22,4 @@ MonoBehaviour:
   movementBehavior: 0
   positionToMoveTo: []
   waveTimeBeforeSpawn: 3
+  spawnPowerPoint: 1

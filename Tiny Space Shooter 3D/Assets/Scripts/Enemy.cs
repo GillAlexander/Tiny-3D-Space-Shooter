@@ -16,6 +16,9 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     [SerializeField] private ShootingBehavior ShootingBehavior = ShootingBehavior.Down;
 
     [SerializeField] private float healthPoints = 10;
+    [SerializeField] private GameObject powerPointPrefab = null;
+    private GameObject powerPoint = null;
+
     private ParticlePlayer particlePlayer = null;
     private AnimationCurve animationCurve = null;
     private int currentPosition = 0;
@@ -111,6 +114,12 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         transform.Translate(nextPosition * Time.deltaTime * 5);
     }
 
+    public void EnablePowerPointDrop()
+    {
+        powerPoint = Instantiate(powerPointPrefab, transform);
+        powerPoint.SetActive(false);
+    }
+
     public void GetMovementBehavior(MovementBehaviors behavior)
     {
         movementBehavior = behavior;
@@ -148,17 +157,10 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         deathSound.transform.parent = null;
         deathSound.gameObject.AddComponent<DestroyAfterTime>();
         deathSound.Play();
+        powerPoint.SetActive(true);
+        powerPoint.transform.parent = null;
         Destroy(this.gameObject);
         particlePlayer.FetchAndPlayParticleAtPosition(Particles.EnemyDeath, transform.position);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        var player = other.gameObject.GetComponentInParent<Player>();
-        if (player != null)
-        {
-            player.TakeDamage(damage);
-        }
     }
 
     public void TakeDamage(float damage)
@@ -170,6 +172,16 @@ public class Enemy : MonoBehaviour, DamageAbleObject
     {
         animationCurve = curve;
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    var enemy = other.gameObject.GetComponentInParent<Player>();
+    //    Debug.Log(enemy);
+    //    if (enemy != null)
+    //    {
+    //        enemy.TakeDamage(1);
+    //    }
+    //}
 
     private void FireProjectile()
     {

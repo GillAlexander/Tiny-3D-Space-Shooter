@@ -41,6 +41,9 @@ public class EnemyWave : ScriptableObject
     [Tooltip("How long before next wave of enemies to spawn")]
     [SerializeField] private float waveTimeBeforeSpawn = 2;
 
+    [Header("PowerPoint")]
+    [SerializeField] private bool spawnPowerPoint = false;
+
     //[Header("Section Passed Percentage")]
     //[SerializeField] private float waveSpawnThreshHold = 5f;
     public int NumberOfEnemies { get => numberOfEnemies; }
@@ -56,5 +59,6 @@ public class EnemyWave : ScriptableObject
     public MovementBehaviors MovementBehavior { get => movementBehavior; }
     public Vector3[] PositionToMoveTo { get => positionToMoveTo; }
     public float WaveTimeBeforeSpawn { get => waveTimeBeforeSpawn; }
+    public bool SpawnPowerPoint { get => spawnPowerPoint; }
     //public WaveType WaveType { get => waveType; }
 }

@@ -11,7 +11,7 @@ using UnityEngine;
 /// - create an enum for the different states of this context, and assign it to T<para />
 /// - set the enum values to corresponding states in Awake()
 /// </summary>
-/// 
+
 public class Context<T> : MonoBehaviour
 {
     private State<T> state = null;

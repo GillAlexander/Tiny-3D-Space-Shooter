@@ -6,7 +6,7 @@ public class Player : MonoBehaviour, DamageAbleObject
 {
     //private float damage = 20f;
     //private float powerupTime = 5f;
-    private float healthPoints = 10;
+    [SerializeField] private float healthPoints = 5;
 
     [SerializeField] private GameObject bullet1 = null;
     [SerializeField] private Transform[] firingPositions = null;
@@ -14,9 +14,9 @@ public class Player : MonoBehaviour, DamageAbleObject
     private Renderer playerRenderer = null;
     private Coroutine damageIenumerator;
     private int enemiesKilled = 0;
+    private float powerupPoints = 0;
     public int numberOfVisualDamageLoops;
     public float damageWaitTime;
-
 
     public float HealthPoints { get => healthPoints; set => healthPoints = value; }
     public int EnemiesKilled { get => enemiesKilled; set => enemiesKilled = value; }
@@ -24,12 +24,13 @@ public class Player : MonoBehaviour, DamageAbleObject
     public void Reset()
     {
         enemiesKilled = 0;
-        healthPoints = 10;
+        healthPoints = 5;
+        powerupPoints = 0;
     }
 
     private void Awake()
     {
-        healthPoints = 10;
+        healthPoints = 5;
         playerRenderer = GetComponentInChildren<Renderer>();
     }
 
@@ -96,5 +97,20 @@ public class Player : MonoBehaviour, DamageAbleObject
     private void InvincibilityMode(bool isInvincibal)
     {
         GetComponentInChildren<Collider>().enabled = !isInvincibal;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var enemy = other.gameObject.GetComponentInParent<Enemy>();
+        if (enemy != null)
+        {
+            TakeDamage(1);
+            return;
+        }
+        var powerPoint = other.gameObject.GetComponentInParent<Powerup>();
+        if (powerPoint != null)
+        {
+            Debug.Log("Hit a powerPoint");
+        }
     }
 }

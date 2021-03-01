@@ -13,7 +13,6 @@ public class GamePlayState : State<ApplicationStates>
         playerController = GameObject.FindObjectOfType<PlayerController>();
         enemySpawner = GameObject.FindObjectOfType<EnemySpawner>();
         level = GameObject.FindObjectOfType<Level>();
-
         playerController.EnablePlayerControll();
     }
 

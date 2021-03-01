@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         waveCompleted = false;
         numberOfTotalEnemies = 0;
         numberOfEnemesSpawned = 0;
-}
+    }
 
 
     private IEnumerator SpawnWave(EnemyWave currentWave, Vector3[] spawnPos, SpawnBehaviors SBehavior, MovementBehaviors MBehavior)
@@ -55,6 +55,14 @@ public class EnemySpawner : MonoBehaviour
             enemy.GetMovementPositions(currentWave.PositionToMoveTo);
             enemy.GetPlayer(player);
             enemy.killedByPlayer += player.AddKillCount;
+
+            if (currentWave.SpawnPowerPoint)
+            {
+                if (i == currentWave.NumberOfEnemies - 1)
+                {
+                    enemy.EnablePowerPointDrop();
+                }
+            }
             yield return new WaitForSeconds(currentWave.TimeBetweenSpawns);
         }
         //currentSpawnNumber = 0; // Behöver fixas, currentspawnnumber behöver bli 0 när waven är slut men skall inte påverka nästa wave som spawnar
