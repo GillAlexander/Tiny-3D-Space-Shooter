@@ -2,52 +2,41 @@
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour, DamageAbleObject
+public class Player : MonoBehaviour, IDamageAbleObject, IReset
 {
     //private float damage = 20f;
     //private float powerupTime = 5f;
     [SerializeField] private float healthPoints = 5;
 
-    [SerializeField] private GameObject bullet1 = null;
-    [SerializeField] private Transform[] firingPositions = null;
-
     private Renderer playerRenderer = null;
     private Coroutine damageIenumerator;
+    private PowerUpManager powerUpManager = null;
+
     private int enemiesKilled = 0;
-    private float powerupPoints = 0;
     public int numberOfVisualDamageLoops;
     public float damageWaitTime;
+
+    public event Action<int> RecivedPowerPoint;
 
     public float HealthPoints { get => healthPoints; set => healthPoints = value; }
     public int EnemiesKilled { get => enemiesKilled; set => enemiesKilled = value; }
 
-    public void Reset()
+    public void ResetValues()
     {
         enemiesKilled = 0;
         healthPoints = 5;
-        powerupPoints = 0;
     }
 
     private void Awake()
     {
         healthPoints = 5;
+        powerUpManager = FindObjectOfType<PowerUpManager>();
         playerRenderer = GetComponentInChildren<Renderer>();
     }
 
     private void Update()
     {
         Death();
-    }
-
-    public void Fire()
-    {
-        for (int i = 0; i < firingPositions.Length; i++)
-        {
-            FindObjectOfType<ParticlePlayer>()?.FetchAndPlayParticleAtPosition(Particles.ProjectileFire, firingPositions[i].position + Vector3.up / 2);
-            var bullet = Instantiate(bullet1, new Vector3(firingPositions[i].position.x, firingPositions[i].position.y, 0), Quaternion.identity);
-            var projectile = bullet.GetComponent<Projectile>();
-            projectile.SetDamage(1);
-        }
     }
 
     public void Death()
@@ -110,7 +99,8 @@ public class Player : MonoBehaviour, DamageAbleObject
         var powerPoint = other.gameObject.GetComponentInParent<Powerup>();
         if (powerPoint != null)
         {
-            Debug.Log("Hit a powerPoint");
+            powerUpManager.IncreasePowerPoints();
+            powerPoint.CleanUp();
         }
     }
 }

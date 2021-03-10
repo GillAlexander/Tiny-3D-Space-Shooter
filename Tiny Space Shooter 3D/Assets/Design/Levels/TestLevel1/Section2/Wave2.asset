@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyPrefabs:
   - {fileID: 1716598160111068640, guid: 2610f2231cbf45a40b06ba940dbf3d25, type: 3}
   numberOfEnemies: 2
-  timeBetweenSpawns: 1.5
+  timeBetweenSpawns: 1
   spawnBehavior: 1
   spawnPositions:
   - {x: -6, y: 0, z: 0}
@@ -23,3 +23,4 @@ MonoBehaviour:
   movementBehavior: 0
   positionToMoveTo: []
   waveTimeBeforeSpawn: 3
+  spawnPowerPoint: 0

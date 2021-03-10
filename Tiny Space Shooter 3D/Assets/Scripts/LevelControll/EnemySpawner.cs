@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IReset
 {
     private int currentSpawnNumber;
     private Player player = null;
@@ -32,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
         NumberOfTotalEnemies += wave.NumberOfEnemies;
     }
 
-    internal void ResetSpawner()
+    public void ResetValues()
     {
         StopAllCoroutines();
         currentSpawnNumber = 0;
@@ -40,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
         numberOfTotalEnemies = 0;
         numberOfEnemesSpawned = 0;
     }
-
 
     private IEnumerator SpawnWave(EnemyWave currentWave, Vector3[] spawnPos, SpawnBehaviors SBehavior, MovementBehaviors MBehavior)
     {
@@ -68,8 +67,6 @@ public class EnemySpawner : MonoBehaviour
         //currentSpawnNumber = 0; // Behöver fixas, currentspawnnumber behöver bli 0 när waven är slut men skall inte påverka nästa wave som spawnar
         waveCompleted = true;
     }
-
-
 
     private Vector3 GetSpawnPosition(SpawnBehaviors behavior, Vector3[] spawnPos)
     {

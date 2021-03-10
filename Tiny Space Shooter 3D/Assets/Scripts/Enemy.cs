@@ -8,7 +8,7 @@ enum ShootingBehavior
     TrackingPlayer = 2
 }
 
-public class Enemy : MonoBehaviour, DamageAbleObject
+public class Enemy : MonoBehaviour, IDamageAbleObject
 {
     [SerializeField] private int damage = 1;
     [SerializeField] private bool canFire = false;
@@ -116,7 +116,7 @@ public class Enemy : MonoBehaviour, DamageAbleObject
 
     public void EnablePowerPointDrop()
     {
-        powerPoint = Instantiate(powerPointPrefab, transform);
+        powerPoint = Instantiate(powerPointPrefab, transform.position, transform.rotation, transform);
         powerPoint.SetActive(false);
     }
 
@@ -157,8 +157,11 @@ public class Enemy : MonoBehaviour, DamageAbleObject
         deathSound.transform.parent = null;
         deathSound.gameObject.AddComponent<DestroyAfterTime>();
         deathSound.Play();
-        powerPoint.SetActive(true);
-        powerPoint.transform.parent = null;
+        if (powerPoint != null)
+        {
+            powerPoint.SetActive(true);
+            powerPoint.transform.parent = null;
+        }
         Destroy(this.gameObject);
         particlePlayer.FetchAndPlayParticleAtPosition(Particles.EnemyDeath, transform.position);
     }

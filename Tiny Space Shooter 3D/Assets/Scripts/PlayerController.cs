@@ -7,11 +7,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool playerHasControll = false;
     public bool gameIsPaused = false; // CHANGE
     public float PLAYERDELAYVALUE = 0;
-    [SerializeField] private float fireCooldown = 0.25f;
-    private float timer = 0;
     private Player player = null;
     private Vector3 idlePosition = Vector3.zero;
     private Vector3 playerPos = Vector3.zero;
+
+    private FiringMechanics firingMechanics = null;
 
     //[SerializeField] private float playerRotationThreshHold = 1f;
     public AudioSource laserSound = null;
@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = GetComponent<Player>();
+        firingMechanics = GetComponent<FiringMechanics>();
     }
 
     void Update()
@@ -32,7 +33,6 @@ public class PlayerController : MonoBehaviour
         idlePosition = Camera.main.transform.position + Vector3.forward * 25;
         playerPos = player.transform.position;
 
-        timer += Time.deltaTime;
         var cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (playerHasControll)
@@ -68,19 +68,11 @@ public class PlayerController : MonoBehaviour
                     Time.timeScale = 1;
         }
 
-        ShootMainWeapon();
+
+        firingMechanics.Shoot(playerHasControll);
     }
 
-    private void ShootMainWeapon()
-    {
-        if (!playerHasControll) return;
-        if (timer >= fireCooldown)
-        {
-            player.Fire();
-            laserSound.Play();
-            timer = 0;
-        }
-    }
+
 
     private IEnumerator SpinPlayer()
     {

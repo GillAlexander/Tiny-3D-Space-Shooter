@@ -8,6 +8,8 @@ public class ResetProgressState : State<ApplicationStates>
     private Level level = null;
     private Player player = null;
     private UiHandler uiHandler = null;
+    private FiringMechanics firingMechanics = null;
+    private PowerUpManager powerUpManager = null;
 
     public override void OnStateEnter()
     {
@@ -15,11 +17,15 @@ public class ResetProgressState : State<ApplicationStates>
         level = GameObject.FindObjectOfType<Level>();
         player = GameObject.FindObjectOfType<Player>();
         uiHandler = GameObject.FindObjectOfType<UiHandler>();
+        firingMechanics = GameObject.FindObjectOfType<FiringMechanics>();
+        powerUpManager = GameObject.FindObjectOfType<PowerUpManager>();
 
-        level.ResetLevel();
-        enemyspawner.ResetSpawner();
-        player.Reset();
-        uiHandler.ResetUi();
+        level.ResetValues();
+        enemyspawner.ResetValues();
+        player.ResetValues();
+        uiHandler.ResetValues();
+        firingMechanics.ResetValues();
+        powerUpManager.ResetValues();
         context.ChangeState(ApplicationStates.SetUpLevelState);
     }
 

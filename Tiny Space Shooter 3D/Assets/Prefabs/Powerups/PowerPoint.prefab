@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4705009744709693562}
   - component: {fileID: 4705009744709693561}
   - component: {fileID: 5820717879470332190}
+  - component: {fileID: 748596902017399091}
   m_Layer: 0
   m_Name: PowerPoint
   m_TagString: Untagged
@@ -108,3 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ced3eda9f0ca3c4284a5460c8909ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &748596902017399091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705009744709693560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c2723234aea2e142ae45562a49f09ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMultiplier: 0.5

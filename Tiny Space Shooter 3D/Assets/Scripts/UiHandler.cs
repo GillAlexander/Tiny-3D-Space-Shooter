@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiHandler : MonoBehaviour
+public class UiHandler : MonoBehaviour, IReset
 {
     [SerializeField] private GameObject MainMenuPanel = null;
     [SerializeField] private GameObject MapSelectionPanel = null;
@@ -16,6 +16,7 @@ public class UiHandler : MonoBehaviour
 
     private Level level = null;
     private Player player = null;
+    private PowerUpManager powerUpManager = null;
     public event Action<int> selectLevel;
     public Button levelSelectButton = null;
     public TMP_Text lifeText = null;
@@ -32,12 +33,52 @@ public class UiHandler : MonoBehaviour
     private int hitCount = 0;
     private int highestCombo = 0;
 
-    public void ResetUi()
+    public Slider powerPointSlider;
+
+    void Start()
+    {
+        level = FindObjectOfType<Level>();
+        player = FindObjectOfType<Player>();
+        powerUpManager = FindObjectOfType<PowerUpManager>();
+        hitMultiplierStartPos = hitMultiplier.transform.position;
+        player.RecivedPowerPoint += UpdatePowerPointUi;
+    }
+
+    void Update()
+    {
+        //var cameraY = Camera.main.transform.position.y;
+        lifeText.text = $"Life: {player.HealthPoints}";
+        timeText.text = $"SectionTime: {level.timeUntilNextWave}";
+
+        if (hitCount == 0)
+        {
+            hitMultiplier.text = " ";
+        }
+        if (hasHitCombo)
+        {
+            hitTimer += Time.deltaTime;
+
+            if (hitTimer >= hitThresholdTime)
+            {
+                hasHitCombo = false;
+                hitTimer = 0;
+                hitCount = 0;
+            }
+        }
+    }
+
+    private void UpdatePowerPointUi(int powerPoints)
+    {
+        powerPointSlider.value = powerPoints;
+    }
+
+    public void ResetValues()
     {
         hitTimer = 0;
         hasHitCombo = false;
         hitCount = 0;
         highestCombo = 0;
+        powerPointSlider.value = 0;
     }
 
     public void DisplayMainMenu()
@@ -80,34 +121,9 @@ public class UiHandler : MonoBehaviour
         selectLevel?.Invoke(level);
     }
 
-    void Start()
+    public void SpendPowerPoint(int powerUp)
     {
-        level = FindObjectOfType<Level>();
-        player = FindObjectOfType<Player>();
-        hitMultiplierStartPos = hitMultiplier.transform.position;
-    }
-
-    void Update()
-    {
-        var cameraY = Camera.main.transform.position.y;
-        lifeText.text = $"Life: {player.HealthPoints}";
-        timeText.text = $"SectionTime: {level.timeUntilNextWave}";
-
-        if (hitCount == 0)
-        {
-            hitMultiplier.text = " ";
-        }
-        if (hasHitCombo)
-        {
-            hitTimer += Time.deltaTime;
-
-            if (hitTimer >= hitThresholdTime)
-            {
-                hasHitCombo = false;
-                hitTimer = 0;
-                hitCount = 0;
-            }
-        }
+        powerUpManager.PowerUp(powerUp);
     }
 
     public void AddHitCount()

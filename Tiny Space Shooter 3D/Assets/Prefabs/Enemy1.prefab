@@ -224,6 +224,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   ShootingBehavior: 0
   healthPoints: 2
+  powerPointPrefab: {fileID: 4705009744709693560, guid: 9dd96da550d4bde45b12b6b6fc22abeb, type: 3}
   rateOfFire: 0.5
   deathSound: {fileID: 8994625198096256071}
 --- !u!54 &2216869371996948079

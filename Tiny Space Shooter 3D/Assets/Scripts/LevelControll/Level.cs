@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class Level : MonoBehaviour, IPause
+public class Level : MonoBehaviour, IPause, IReset
 {
     [SerializeField] private LevelSectionInformation[] levelSectionsInfo = null;
     [SerializeField] private GameObject positionChecker = null;
@@ -22,7 +22,7 @@ public class Level : MonoBehaviour, IPause
     private List<GameObject> levelObjectList = new List<GameObject>();
     public int LevelToLoad { get => levelToLoad; set => levelToLoad = value; }
 
-    public void ResetLevel()
+    public void ResetValues()
     {
         waveCountdownTime = 0;
         currentSectionWave = 0;
@@ -31,6 +31,7 @@ public class Level : MonoBehaviour, IPause
         levelSectionsInfo = null;
         currentWaveNumber = 0;
         currentSectionNumber = 0;
+        levelObjectList = new List<GameObject>();
         Destroy(paralaxxBackground.gameObject);
     }
 
@@ -106,6 +107,10 @@ public class Level : MonoBehaviour, IPause
 
             if (currentSection.LevelOjectLayout != null)
             {
+                if (currentSection.LevelOjectLayout.SpawnObjectInfo.Length <= currentObjectSpawn)
+                {
+                    return;
+                }
                 var objectInfo = currentSection.LevelOjectLayout.SpawnObjectInfo[currentObjectSpawn];
                 if (objectSpawnTime >= objectInfo.timeBeforeSpawn)
                 {
@@ -141,8 +146,16 @@ public class Level : MonoBehaviour, IPause
 
     public IEnumerator CleanUpLevelObjectsCoroutine()
     {
+        if (levelObjectList == null)
+        {
+            yield return null;
+        }
         for (int i = 0; i < levelObjectList.Count; i++)
         {
+            if (levelObjectList[i] == null)
+            {
+                yield return null;
+            }
             levelObjectList[i].SetActive(false);
         }
         yield return new WaitForSeconds(0.5f);
