@@ -55,20 +55,6 @@ public class PlayerController : MonoBehaviour
             playerHasControll = !playerHasControll;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            //Pause the game
-            GameManager.isPaused = !GameManager.isPaused;
-
-                if (GameManager.isPaused)
-                {
-                    Time.timeScale = 0;
-                }
-                else
-                    Time.timeScale = 1;
-        }
-
-
         firingMechanics.Shoot(playerHasControll);
     }
 

@@ -16,8 +16,6 @@ public class Player : MonoBehaviour, IDamageAbleObject, IReset
     public int numberOfVisualDamageLoops;
     public float damageWaitTime;
 
-    public event Action<int> RecivedPowerPoint;
-
     public float HealthPoints { get => healthPoints; set => healthPoints = value; }
     public int EnemiesKilled { get => enemiesKilled; set => enemiesKilled = value; }
 

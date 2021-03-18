@@ -17,7 +17,6 @@ public class UiHandler : MonoBehaviour, IReset
     private Level level = null;
     private Player player = null;
     private PowerUpManager powerUpManager = null;
-    public event Action<int> selectLevel;
     public Button levelSelectButton = null;
     public TMP_Text lifeText = null;
     public TMP_Text hitMultiplier = null;
@@ -35,13 +34,16 @@ public class UiHandler : MonoBehaviour, IReset
 
     public Slider powerPointSlider;
 
+    public event Action<int> selectLevel;
+    public event Action exitToMenu;
+
     void Start()
     {
         level = FindObjectOfType<Level>();
         player = FindObjectOfType<Player>();
         powerUpManager = FindObjectOfType<PowerUpManager>();
         hitMultiplierStartPos = hitMultiplier.transform.position;
-        player.RecivedPowerPoint += UpdatePowerPointUi;
+        powerUpManager.RecivedPowerPoint += UpdatePowerPointUi;
     }
 
     void Update()
@@ -81,6 +83,7 @@ public class UiHandler : MonoBehaviour, IReset
         powerPointSlider.value = 0;
     }
 
+    #region DisplayCommands
     public void DisplayMainMenu()
     {
         HideAllUiPanels();
@@ -114,6 +117,19 @@ public class UiHandler : MonoBehaviour, IReset
 
         enemiesKilledText.text = $"Enemies Killed {enemiesKilled}/{numberOfEnemies}";
         comboText.text = $"Highest combo achived x{highestCombo}";
+    }
+    #endregion
+
+    public void ResumeGameplayButton()
+    {
+        GameManager.isPaused = !GameManager.isPaused;
+        Time.timeScale = 1;
+        DisplayGameplay();
+    }
+
+    public void ExitToMenuButton()
+    {
+        exitToMenu?.Invoke();
     }
 
     public void SelectLevel(int level)

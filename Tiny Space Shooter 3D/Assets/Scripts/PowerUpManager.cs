@@ -12,6 +12,7 @@ public class PowerUpManager : MonoBehaviour, IReset
     public PowerUpArray[] powerUpLevel;
     private const int MAXPOWERPOINTS = 5;
     private int currentPowerPoints = 0;
+    public event Action<int> RecivedPowerPoint;
 
     public void AddPowerPoint() => currentPowerPoints++;
 
@@ -32,6 +33,7 @@ public class PowerUpManager : MonoBehaviour, IReset
             {
                 powerUpLevel[pointsToSpend - 1].powerUpLevel++;
                 currentPowerPoints -= pointsToSpend;
+                RecivedPowerPoint?.Invoke(currentPowerPoints);
             }
         }
         Debug.Log(currentPowerPoints);
@@ -52,6 +54,7 @@ public class PowerUpManager : MonoBehaviour, IReset
         if (currentPowerPoints == MAXPOWERPOINTS)
             return;
         currentPowerPoints++;
+        RecivedPowerPoint?.Invoke(currentPowerPoints);
     }
 
     [Serializable]
