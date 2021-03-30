@@ -16,7 +16,8 @@ public class SetupLevelState : State<ApplicationStates>
         if (levels.Length == 0) Debug.LogError("Missing level to load in the Resource Folder");
 
         level.FetchLevelInfo(levels);
-        levels = null;
+        levels = null; // Kanske göra om så att leves som redan är laddade blir bara överskrivna ifall en ny 
+        //bana blir vald men startar man om samma bana så behålls sectioninfon kvar
         context.ChangeState(ApplicationStates.GamePlayState);
     }
 

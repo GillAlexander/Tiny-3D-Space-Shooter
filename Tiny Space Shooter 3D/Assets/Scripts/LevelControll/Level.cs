@@ -4,22 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class Level : MonoBehaviour, IPause, IReset
+public class Level : MonoBehaviour, IReset
 {
     [SerializeField] private LevelSectionInformation[] levelSectionsInfo = null;
+    [SerializeField] private SpriteRenderer[] backgroundRenderers = null;
+    [SerializeField] private Sprite menuImage = null;
+
     [SerializeField] private GameObject positionChecker = null;
     private EnemySpawner enemySpawner = null;
     private EnemyWave currentWave = null;
-    private GameObject paralaxxBackground = null;
-    private List<GameObject> backgroundImages = new List<GameObject>();
+    private Player player = null;
+
     private int currentSectionNumber = 0;
     private int currentSectionWave = 0;
     private int currentWaveNumber = 0;
     private int levelToLoad = 0;
     private float waveCountdownTime = 0;
     private float objectSpawnTime = 0;
+    private int currentObjectSpawn = 0;
     [HideInInspector] public float timeUntilNextWave;
-    private List<GameObject> levelObjectList = new List<GameObject>();
+    public List<GameObject> levelObjectList = new List<GameObject>();
     public int LevelToLoad { get => levelToLoad; set => levelToLoad = value; }
 
     public void ResetValues()
@@ -32,18 +36,12 @@ public class Level : MonoBehaviour, IPause, IReset
         currentWaveNumber = 0;
         currentSectionNumber = 0;
         levelObjectList = new List<GameObject>();
-        Destroy(paralaxxBackground.gameObject);
-    }
-
-    public void Pause(bool paused)
-    {
-
     }
 
     public void FetchLevelInfo(LevelSectionInformation[] newLevelSectionInfo)
     {
         levelSectionsInfo = newLevelSectionInfo;
-        SpawnParallaxBackground();
+        ChangeBackgroundSprite(levelSectionsInfo[0].GetBackgroundSprite());
     }
 
     public void NewLevelToLoad(int newLevel)
@@ -54,14 +52,14 @@ public class Level : MonoBehaviour, IPause, IReset
     private void Awake()
     {
         enemySpawner = FindObjectOfType<EnemySpawner>();
+        player = FindObjectOfType<Player>();
     }
 
     private void Start()
     {
-        SpawnParallaxBackground();
+        ChangeBackgroundSprite(menuImage);
     }
 
-    int currentObjectSpawn = 0;
 
     public bool SpawnedAllTheWaves()
     {
@@ -114,7 +112,7 @@ public class Level : MonoBehaviour, IPause, IReset
                 var objectInfo = currentSection.LevelOjectLayout.SpawnObjectInfo[currentObjectSpawn];
                 if (objectSpawnTime >= objectInfo.timeBeforeSpawn)
                 {
-                    var position = new Vector3(objectInfo.spawnPosition.x, FindObjectOfType<Player>().transform.position.y + 25, 0);
+                    var position = new Vector3(objectInfo.spawnPosition.x, player.transform.position.y + 25, 0);
                     var spawnedObject = Instantiate(objectInfo.objectToSpawn, position, Quaternion.identity);
                     levelObjectList.Add(spawnedObject);
                     spawnedObject.transform.parent = positionChecker.transform;
@@ -141,6 +139,7 @@ public class Level : MonoBehaviour, IPause, IReset
 
     public void CleanUpLevelObjects()
     {
+        ResetValues();
         StartCoroutine(CleanUpLevelObjectsCoroutine());
     }
 
@@ -158,12 +157,12 @@ public class Level : MonoBehaviour, IPause, IReset
             }
             levelObjectList[i].SetActive(false);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         for (int i = 0; i < levelObjectList.Count; i++)
         {
             Destroy(levelObjectList[i]);
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -175,33 +174,17 @@ public class Level : MonoBehaviour, IPause, IReset
         return section;
     }
 
-    private void SpawnParallaxBackground()
+    private void ChangeBackgroundSprite(Sprite newSprite)
     {
-        for (int i = 0; i < levelSectionsInfo.Length; i++)
+        for (int i = 0; i < backgroundRenderers.Length; i++)
         {
-            if (i == 0)
-            {
-                paralaxxBackground = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
-                backgroundImages.Add(paralaxxBackground);
-            }
-            else
-            {
-                paralaxxBackground = Instantiate(levelSectionsInfo[i].BackgroundImage, new Vector3(0, 0, 20), Quaternion.identity);
-                paralaxxBackground.SetActive(false);
-                backgroundImages.Add(paralaxxBackground);
-            }
+            backgroundRenderers[i].sprite = newSprite;
         }
-        //for (int i = 0; i < levelSectionsInfo.Length; i++)
-        //{
-        //    GameObject background = new GameObject();
+    }
 
-        //    background.name = $"Background {levelSectionsInfo[i]} ";
-        //    for (int i = 0; i < 2; i++)
-        //    {
-        //        SpriteRenderer renderer = background.AddComponent<Sprite>
-        //    }
-        //    background.
-        //}
+    public void ApplyMenuImage()
+    {
+        ChangeBackgroundSprite(menuImage);
     }
 }
 

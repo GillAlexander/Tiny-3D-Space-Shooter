@@ -13,6 +13,19 @@ public class EnemySpawner : MonoBehaviour, IReset
     private List<GameObject> spawnedEnemies = new List<GameObject>();
 
     private int numberOfTotalEnemies = 0;
+
+    public void CleanupEnemies()
+    {
+        StopAllCoroutines();
+        for (int i = 0; i < spawnedEnemies.Count; i++)
+        {
+            if (spawnedEnemies[i] != null)
+            {
+                Destroy(spawnedEnemies[i]);
+            }
+        }
+    }
+
     private int numberOfEnemesSpawned = 0;
 
     public int NumberOfTotalEnemies { get => numberOfTotalEnemies; set => numberOfTotalEnemies = value; }

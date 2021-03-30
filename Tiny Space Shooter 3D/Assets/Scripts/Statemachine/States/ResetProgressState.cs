@@ -7,7 +7,7 @@ public class ResetProgressState : State<ApplicationStates>
     private EnemySpawner enemyspawner = null;
     private Level level = null;
     private Player player = null;
-    private UiHandler uiHandler = null;
+    private UiManager uiHandler = null;
     private FiringMechanics firingMechanics = null;
     private PowerUpManager powerUpManager = null;
 
@@ -16,7 +16,7 @@ public class ResetProgressState : State<ApplicationStates>
         enemyspawner = GameObject.FindObjectOfType<EnemySpawner>();
         level = GameObject.FindObjectOfType<Level>();
         player = GameObject.FindObjectOfType<Player>();
-        uiHandler = GameObject.FindObjectOfType<UiHandler>();
+        uiHandler = GameObject.FindObjectOfType<UiManager>();
         firingMechanics = GameObject.FindObjectOfType<FiringMechanics>();
         powerUpManager = GameObject.FindObjectOfType<PowerUpManager>();
 

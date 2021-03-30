@@ -30,7 +30,7 @@ public class Context<T> : MonoBehaviour
             this.state.OnStateExit();
         }
         this.state = states[state];
-        FindObjectOfType<UiHandler>().currentStateDisplay.text = states[state].ToString();
+        FindObjectOfType<UiManager>().currentStateDisplay.text = states[state].ToString();
         this.state.SetContext(this);
         this.state.OnStateEnter();
     }

@@ -55,8 +55,8 @@ public class Projectile : MonoBehaviour
             damageableObject.TakeDamage(damage);
             particlePlayer.FetchAndPlayParticleAtPosition(Particles.ProjectileHit, other.transform.position);
 
-            FindObjectOfType<UiHandler>().AddHitCount();
-            FindObjectOfType<UiHandler>().ShakeHitMultiplier();
+            FindObjectOfType<UiManager>().AddHitCount();
+            FindObjectOfType<UiManager>().ShakeHitMultiplier();
 
             //hitSound.transform.parent = null;
             //hitSound.Play();

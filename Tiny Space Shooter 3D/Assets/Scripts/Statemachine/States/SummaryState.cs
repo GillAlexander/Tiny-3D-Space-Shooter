@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SummaryState : State<ApplicationStates>
 {
-    private UiHandler uiHandler = null;
+    private UiManager uiHandler = null;
     private InputManager inputs = null;
 
     public override void OnStateEnter()
     {
-        uiHandler = GameObject.FindObjectOfType<UiHandler>();
+        uiHandler = GameObject.FindObjectOfType<UiManager>();
         inputs = GameObject.FindObjectOfType<InputManager>();
 
         uiHandler.DisplaySummary();

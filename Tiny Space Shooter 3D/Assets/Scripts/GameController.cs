@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    private UiHandler uiHandler = null;
+    private UiManager uiHandler = null;
 
     private void Start()
     {
-        uiHandler = FindObjectOfType<UiHandler>();
+        uiHandler = FindObjectOfType<UiManager>();
     }
 
     void Update()
@@ -25,31 +25,14 @@ public class GameController : MonoBehaviour
 
             if (GameManager.isPaused)
             {
-                Time.timeScale = 0;
+                TimeManager.Timescale(0);
                 uiHandler.DisplayPause();
             }
             else
             {
-                Time.timeScale = 1;
+                TimeManager.Timescale(1);
                 uiHandler.DisplayGameplay();
             }
-        }
-    }
-
-    public void PauseButton()
-    {
-        //Pause the game
-        GameManager.isPaused = !GameManager.isPaused;
-
-        if (GameManager.isPaused)
-        {
-            Time.timeScale = 0;
-            uiHandler.DisplayPause();
-        }
-        else
-        {
-            Time.timeScale = 1;
-            uiHandler.DisplayGameplay();
         }
     }
 }

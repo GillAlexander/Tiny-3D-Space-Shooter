@@ -6,16 +6,17 @@ using UnityEngine.UI;
 
 public class MenuState : State<ApplicationStates>
 {
-    private UiHandler uiHandler = null;
+    private UiManager uiHandler = null;
     private PlayerController playerController = null;
     private Level level = null;
 
     public override void OnStateEnter()
     {
-        uiHandler = GameObject.FindObjectOfType<UiHandler>();
+        uiHandler = GameObject.FindObjectOfType<UiManager>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
         level = GameObject.FindObjectOfType<Level>();
 
+        level.ApplyMenuImage();
         playerController.DisablePlayerControll();
         uiHandler.DisplayMainMenu();
         uiHandler.selectLevel += ResetProgress;

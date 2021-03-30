@@ -9,7 +9,8 @@ public enum ApplicationStates
     SetUpLevelState = 2,
     GamePlayState = 3,
     PauseState = 4,
-    SummaryState = 5
+    SummaryState = 5,
+    CleanupState = 6
 }
 
 public class ApplicationStateMachine : Context<ApplicationStates>
@@ -23,6 +24,7 @@ public class ApplicationStateMachine : Context<ApplicationStates>
         states[ApplicationStates.GamePlayState] = new GamePlayState();
         states[ApplicationStates.PauseState] = new PauseState();
         states[ApplicationStates.SummaryState] = new SummaryState();
+        states[ApplicationStates.CleanupState] = new CleanUpState();
     }
 
     protected override void Start()
