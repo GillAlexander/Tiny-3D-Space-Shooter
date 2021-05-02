@@ -27,14 +27,25 @@ public class PowerUpManager : MonoBehaviour, IReset
 
     public void PowerUp(int pointsToSpend)
     {
+        if (pointsToSpend > 1) // Finns bara 1 uppgradering för nuet 2021-05-02
+        {
+            currentPowerPoints = 0;
+            RecivedPowerPoint?.Invoke(currentPowerPoints);
+            return; 
+        }
+
         if (currentPowerPoints >= pointsToSpend)
         {
-            if (powerUpLevel[pointsToSpend - 1].powerUpLevel != powerUpLevel[pointsToSpend - 1].maximumLevel)
+            if (powerUpLevel[pointsToSpend - 1].powerUpLevel == powerUpLevel[pointsToSpend - 1].maximumLevel)
             {
-                powerUpLevel[pointsToSpend - 1].powerUpLevel++;
-                currentPowerPoints -= pointsToSpend;
-                RecivedPowerPoint?.Invoke(currentPowerPoints);
+                //Behöver visa att man nått maximum level
+                currentPowerPoints = 0;
+                return;
             }
+
+            powerUpLevel[pointsToSpend - 1].powerUpLevel++;
+            currentPowerPoints = 0;
+            RecivedPowerPoint?.Invoke(currentPowerPoints);
         }
         Debug.Log(currentPowerPoints);
     }

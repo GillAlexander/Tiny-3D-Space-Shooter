@@ -38,6 +38,7 @@ public class UiManager : MonoBehaviour, IReset
     [Header("PowerPoint")] [Space(10)]
     public Slider powerPointSlider;
     [SerializeField] private GameObject[] powerPointImages;
+    private GameObject currentPowerPointImage = null;
     public event Action<int> selectLevel;
 
     void Start()
@@ -75,9 +76,18 @@ public class UiManager : MonoBehaviour, IReset
     private void UpdatePowerPointUi(int powerPoints)
     {
         powerPointSlider.value = powerPoints;
-        if (powerPoints != 1)
-            powerPointImages[powerPoints - 2].SetActive(false);
-        powerPointImages[powerPoints - 1].SetActive(true);
+        if(currentPowerPointImage != null)
+            currentPowerPointImage.SetActive(false);
+
+        if (powerPoints != 0)
+        {
+            currentPowerPointImage = powerPointImages[powerPoints - 1];
+            currentPowerPointImage.SetActive(true);
+        }
+
+        //if (powerPoints != 1)
+        //    currentPowerPointImage = powerPointImages[powerPoints - 2];
+        //currentPowerPointImage = powerPointImages[powerPoints - 1];
     }
 
     public void ResetValues()
