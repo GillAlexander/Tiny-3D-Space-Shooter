@@ -167,19 +167,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13436}
     - Class: 114
-      Script: {instanceID: 13534}
+      Script: {instanceID: 13536}
     - Class: 114
-      Script: {instanceID: 13600}
+      Script: {instanceID: 13602}
     - Class: 114
-      Script: {instanceID: 13774}
+      Script: {instanceID: 13776}
     - Class: 114
-      Script: {instanceID: 13890}
+      Script: {instanceID: 13892}
     - Class: 114
-      Script: {instanceID: 13924}
+      Script: {instanceID: 13926}
     - Class: 114
-      Script: {instanceID: 14002}
+      Script: {instanceID: 14004}
     - Class: 114
-      Script: {instanceID: 14038}
+      Script: {instanceID: 14040}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -483,7 +483,7 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 34487b9a363c80835423c00499d463d6
+      Hash: 19c1b5972db4f92f953ada7cd3b75f0f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -495,7 +495,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: c61ba2441febc1707dae7b744e74091c
+      Hash: ca0f4b4f3c85261bc228375d095dd172
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UiManager
@@ -868,4 +868,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/ApplicationMainScene.unity
-  playerPath: E:/UnityBuilds/Space Shooter/powerupbuild pause screen.apk
+  playerPath: E:/UnityBuilds/Space Shooter/Gyrocontrol test.apk

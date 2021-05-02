@@ -15,7 +15,14 @@ MonoBehaviour:
   backGroundSprite: {fileID: 21300000, guid: ddcac1fac1f5c8943a30c2ef6b724062, type: 3}
   backgroundImage: {fileID: 2879158032454880613, guid: 29d93b01db2e989449ffdac15a7df350, type: 3}
   waves:
-  - {fileID: 11400000, guid: e6ca906708978ee42bf80835f40cc067, type: 2}
-  - {fileID: 11400000, guid: a0072cf12f11faa42bb66ed299bd6385, type: 2}
-  - {fileID: 11400000, guid: b2dacc9cca454f54bb4d6436a30e846d, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
+  - {fileID: 11400000, guid: 3482310e705544a4d9ca79039d1a8159, type: 2}
   levelOjectLayout: {fileID: 0}

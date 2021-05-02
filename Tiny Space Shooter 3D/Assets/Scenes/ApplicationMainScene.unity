@@ -131,6 +131,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: MainMenuPanel
       value: 
       objectReference: {fileID: 1995073032}
@@ -182,6 +186,26 @@ PrefabInstance:
       propertyPath: powerPointSlider
       value: 
       objectReference: {fileID: 1964688440}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 715839813}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 1703425811}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 1726349422}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 111399134}
+    - target: {fileID: 945188252, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
+      propertyPath: powerPointImages.Array.data[4]
+      value: 
+      objectReference: {fileID: 115527084}
     - target: {fileID: 2731838833891741424, guid: 27fbd9f63d9a97b479334360932db194, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -504,7 +528,7 @@ GameObject:
   - component: {fileID: 111399137}
   - component: {fileID: 111399136}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: UpgradeNr4Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -526,7 +550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -50}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111399136
@@ -635,7 +659,7 @@ GameObject:
   - component: {fileID: 115527087}
   - component: {fileID: 115527086}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: UpgradeNr5Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1770,6 +1794,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 594570714}
     m_Modifications:
+    - target: {fileID: 1879622991761361461, guid: 16bfc2ff52676b64ab9fae703d0b9733, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 2094029946647990840, guid: 16bfc2ff52676b64ab9fae703d0b9733, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1987,12 +2015,12 @@ GameObject:
   - component: {fileID: 715839815}
   - component: {fileID: 715839817}
   m_Layer: 5
-  m_Name: Image
+  m_Name: UpgradeNr1Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &715839814
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2007,9 +2035,9 @@ RectTransform:
   m_Father: {fileID: 1730565296}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &715839815
@@ -5438,7 +5466,7 @@ GameObject:
   - component: {fileID: 1703425814}
   - component: {fileID: 1703425813}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: UpgradeNr2Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5672,7 +5700,7 @@ GameObject:
   - component: {fileID: 1726349425}
   - component: {fileID: 1726349424}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: UpgradeNr3Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5694,7 +5722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
+  m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1726349424

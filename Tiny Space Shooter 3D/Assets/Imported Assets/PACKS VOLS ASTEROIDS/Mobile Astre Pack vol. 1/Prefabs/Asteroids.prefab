@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9192707903913815703}
   - component: {fileID: -6901756065732549622}
-  m_Layer: 0
+  - component: {fileID: 829189232434645483}
+  m_Layer: 12
   m_Name: Asteroids
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,6 +51,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+--- !u!65 &829189232434645483
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9192707903913815700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.75, y: 12.520259, z: 1.75}
+  m_Center: {x: 0, y: -1.5234113, z: 0}
 --- !u!1001 &2889016496327957090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60,6 +74,10 @@ PrefabInstance:
     - target: {fileID: 152982, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 3}
       propertyPath: m_Name
       value: astre_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 152982, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 410610, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 3}
       propertyPath: m_LocalPosition.x
@@ -135,6 +153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: astre_2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 111306, guid: 7255e26f7d2981d4ea7ed83351d2d805, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 436568, guid: 7255e26f7d2981d4ea7ed83351d2d805, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -208,6 +230,10 @@ PrefabInstance:
     - target: {fileID: 102630, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
       propertyPath: m_Name
       value: astre_0 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 102630, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 424010, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
       propertyPath: m_LocalPosition.x
@@ -283,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: astre_1
       objectReference: {fileID: 0}
+    - target: {fileID: 152982, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 410610, guid: 75204aeb0b1f4194e8dd78998abb7652, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -357,6 +387,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: astre_2
       objectReference: {fileID: 0}
+    - target: {fileID: 111306, guid: 7255e26f7d2981d4ea7ed83351d2d805, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 436568, guid: 7255e26f7d2981d4ea7ed83351d2d805, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -430,6 +464,10 @@ PrefabInstance:
     - target: {fileID: 102630, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
       propertyPath: m_Name
       value: astre_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 102630, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 424010, guid: 678bc45fa6df37043b80d12daa3a9d51, type: 3}
       propertyPath: m_LocalPosition.x

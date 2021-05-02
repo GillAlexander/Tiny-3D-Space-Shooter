@@ -22,10 +22,13 @@ public class PlayerController : MonoBehaviour
     public void EnablePlayerControll() => playerHasControll = true;
     public void DisablePlayerControll() => playerHasControll = false;
 
+    public Rigidbody playerRigidbody = null;
+
     void Start()
     {
         player = GetComponent<Player>();
         firingMechanics = GetComponent<FiringMechanics>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -34,10 +37,10 @@ public class PlayerController : MonoBehaviour
         playerPos = player.transform.position;
 
         var cursorPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        
         if (playerHasControll)
         {
-            player.transform.position = Vector3.Lerp(playerPos, new Vector3(cursorPosition.x, 
+            player.transform.position = Vector3.Lerp(playerPos, new Vector3(cursorPosition.x,
                                                                             cursorPosition.y + 2.5f,
                                                                             cursorPosition.z) + Vector3.forward * 25, Time.deltaTime * PLAYERDELAYVALUE);
         }
@@ -57,8 +60,6 @@ public class PlayerController : MonoBehaviour
 
         firingMechanics.Shoot(playerHasControll);
     }
-
-
 
     private IEnumerator SpinPlayer()
     {

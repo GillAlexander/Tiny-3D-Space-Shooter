@@ -35,6 +35,7 @@ public class Level : MonoBehaviour, IReset
         levelSectionsInfo = null;
         currentWaveNumber = 0;
         currentSectionNumber = 0;
+        currentObjectSpawn = 0;
         levelObjectList = new List<GameObject>();
     }
 
@@ -59,7 +60,6 @@ public class Level : MonoBehaviour, IReset
     {
         ChangeBackgroundSprite(menuImage);
     }
-
 
     public bool SpawnedAllTheWaves()
     {
@@ -110,6 +110,7 @@ public class Level : MonoBehaviour, IReset
                     return;
                 }
                 var objectInfo = currentSection.LevelOjectLayout.SpawnObjectInfo[currentObjectSpawn];
+
                 if (objectSpawnTime >= objectInfo.timeBeforeSpawn)
                 {
                     var position = new Vector3(objectInfo.spawnPosition.x, player.transform.position.y + 25, 0);
@@ -139,30 +140,19 @@ public class Level : MonoBehaviour, IReset
 
     public void CleanUpLevelObjects()
     {
+        CleanUpLevelObjectsCoroutine();
         ResetValues();
-        StartCoroutine(CleanUpLevelObjectsCoroutine());
     }
 
-    public IEnumerator CleanUpLevelObjectsCoroutine()
+    public void CleanUpLevelObjectsCoroutine()
     {
-        if (levelObjectList == null)
-        {
-            yield return null;
-        }
         for (int i = 0; i < levelObjectList.Count; i++)
         {
             if (levelObjectList[i] == null)
             {
-                yield return null;
+                continue;
             }
-            levelObjectList[i].SetActive(false);
-        }
-        yield return new WaitForSeconds(0.1f);
-
-        for (int i = 0; i < levelObjectList.Count; i++)
-        {
-            Destroy(levelObjectList[i]);
-            yield return new WaitForSeconds(0.1f);
+            Destroy(levelObjectList[i].gameObject);
         }
     }
 

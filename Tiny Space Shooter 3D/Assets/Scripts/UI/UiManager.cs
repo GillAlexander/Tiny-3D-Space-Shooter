@@ -6,34 +6,38 @@ using UnityEngine.UI;
 
 public class UiManager : MonoBehaviour, IReset
 {
+    [Header("Panels")] [Space(10)]
     [SerializeField] private GameObject MainMenuPanel = null;
     [SerializeField] private GameObject MapSelectionPanel = null;
     [SerializeField] private GameObject PausePanel = null;
     [SerializeField] private GameObject IngameUiPanel = null;
     [SerializeField] private GameObject SummaryPanel = null;
 
-    public TMP_Text currentStateDisplay = null; //DEBUG
-
-    private Level level = null;
-    private Player player = null;
-    private PowerUpManager powerUpManager = null;
     public Button levelSelectButton = null;
+
+    [Header("Texts")] [Space(10)]
+    public TMP_Text currentStateDisplay = null;
     public TMP_Text lifeText = null;
     public TMP_Text hitMultiplier = null;
     public TMP_Text timeText = null;
-
     public TMP_Text enemiesKilledText = null;
     public TMP_Text comboText = null;
 
-    private Vector3 hitMultiplierStartPos;
+    [Header("Timers")] [Space(10)]
     [SerializeField] private float hitThresholdTime = 0;
+
+    private Vector3 hitMultiplierStartPos;
+    private Level level = null;
+    private Player player = null;
+    private PowerUpManager powerUpManager = null;
     private float hitTimer = 0;
     private bool hasHitCombo = false;
     private int hitCount = 0;
     private int highestCombo = 0;
 
+    [Header("PowerPoint")] [Space(10)]
     public Slider powerPointSlider;
-
+    [SerializeField] private GameObject[] powerPointImages;
     public event Action<int> selectLevel;
 
     void Start()
@@ -71,6 +75,9 @@ public class UiManager : MonoBehaviour, IReset
     private void UpdatePowerPointUi(int powerPoints)
     {
         powerPointSlider.value = powerPoints;
+        if (powerPoints != 1)
+            powerPointImages[powerPoints - 2].SetActive(false);
+        powerPointImages[powerPoints - 1].SetActive(true);
     }
 
     public void ResetValues()
@@ -80,6 +87,9 @@ public class UiManager : MonoBehaviour, IReset
         hitCount = 0;
         highestCombo = 0;
         powerPointSlider.value = 0;
+
+        for (int i = 0; i < powerPointImages.Length; i++)
+            powerPointImages[i].SetActive(false);
     }
 
     #region DisplayCommands

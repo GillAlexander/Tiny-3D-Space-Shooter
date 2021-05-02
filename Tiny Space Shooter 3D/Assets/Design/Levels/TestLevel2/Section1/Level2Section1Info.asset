@@ -16,5 +16,4 @@ MonoBehaviour:
   backgroundImage: {fileID: 2879158032454880613, guid: 29d93b01db2e989449ffdac15a7df350, type: 3}
   waves:
   - {fileID: 11400000, guid: 6615c38924b9a1246b921fff6f463704, type: 2}
-  sectionLength: 1
-  levelOjectLayout: {fileID: 0}
+  levelOjectLayout: {fileID: 11400000, guid: 465024d9d4c28ab48a705f225dd9b74f, type: 2}

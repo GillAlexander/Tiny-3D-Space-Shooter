@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class Player : MonoBehaviour, IDamageAbleObject, IReset
 {
     //private float damage = 20f;
@@ -99,6 +100,10 @@ public class Player : MonoBehaviour, IDamageAbleObject, IReset
         {
             powerUpManager.IncreasePowerPoints();
             powerPoint.CleanUp();
+        }
+        if (other.gameObject.layer == (int)Layers.debris)
+        {
+            TakeDamage(healthPoints);
         }
     }
 }
