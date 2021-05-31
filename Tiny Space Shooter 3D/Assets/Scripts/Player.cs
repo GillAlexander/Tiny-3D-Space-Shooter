@@ -8,7 +8,7 @@ public class Player : MonoBehaviour, IDamageAbleObject, IReset
     //private float damage = 20f;
     //private float powerupTime = 5f;
     [SerializeField] private float healthPoints = 5;
-
+    private ParticlePlayer particlePlayer = null;
     private Renderer playerRenderer = null;
     private Coroutine damageIenumerator;
     private PowerUpManager powerUpManager = null;
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour, IDamageAbleObject, IReset
         healthPoints = 5;
         powerUpManager = FindObjectOfType<PowerUpManager>();
         playerRenderer = GetComponentInChildren<Renderer>();
+        particlePlayer = FindObjectOfType<ParticlePlayer>();
     }
 
     private void Update()
@@ -99,6 +100,7 @@ public class Player : MonoBehaviour, IDamageAbleObject, IReset
         if (powerPoint != null)
         {
             powerUpManager.IncreasePowerPoints();
+            particlePlayer.FetchAndPlayParticleAtPosition(Particles.PickupPowerUp, powerPoint.transform.position);
             powerPoint.CleanUp();
         }
         if (other.gameObject.layer == (int)Layers.debris)

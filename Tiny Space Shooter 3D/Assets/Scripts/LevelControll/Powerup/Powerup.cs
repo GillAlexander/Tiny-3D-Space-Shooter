@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
+
     public void CleanUp()
     {
         Destroy(this.gameObject);

@@ -5050,10 +5050,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27d8a6e1e24bd84cb0d0a9e00ddbe2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticle: {fileID: 198572881580852744, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
-  projectileFireParticle: {fileID: 19800000, guid: 977366825a875ff469e76c6f2349166c, type: 3}
-  projectileHitParticle: {fileID: 19800000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
-  enemyDeathParticle: {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  particles:
+  - {fileID: 198194127032045410, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
+  - {fileID: 198572881580852744, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
+  - {fileID: 19800000, guid: 977366825a875ff469e76c6f2349166c, type: 3}
+  - {fileID: 19800000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
+  - {fileID: 198405478074982118, guid: 4adffb0018aeda44e9263f901167af1f, type: 3}
 --- !u!4 &1565134800
 Transform:
   m_ObjectHideFlags: 0

@@ -4,46 +4,49 @@ using UnityEngine;
 
 public enum Particles
 {
-    PlayerDeath,
     EnemyDeath,
+    PlayerDeath,
     ProjectileFire,
-    ProjectileHit
+    ProjectileHit,
+    PickupPowerUp
 }
 
 public class ParticlePlayer : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem deathParticle = null;
-    [SerializeField] private ParticleSystem projectileFireParticle = null;
-    [SerializeField] private ParticleSystem projectileHitParticle = null;
-    [SerializeField] private ParticleSystem enemyDeathParticle = null;
+    [SerializeField] private ParticleSystem[] particles;
 
-    private Dictionary<Particles, ParticleSystem> particleDictionary = new Dictionary<Particles, ParticleSystem>();
-    private Dictionary<Particles, Queue<ParticleSystem>> particlesQueueDictionary = new Dictionary<Particles, Queue<ParticleSystem>>();
+    //[SerializeField] private ParticleSystem deathParticle = null;
+    //[SerializeField] private ParticleSystem projectileFireParticle = null;
+    //[SerializeField] private ParticleSystem projectileHitParticle = null;
+    //[SerializeField] private ParticleSystem enemyDeathParticle = null;
 
-    private Queue<ParticleSystem> deathQueue = new Queue<ParticleSystem>();
-    private Queue<ParticleSystem> projectileFireQueue = new Queue<ParticleSystem>();
-    private Queue<ParticleSystem> projectileHitQueue = new Queue<ParticleSystem>();
-    private Queue<ParticleSystem> enemyDeathQueue = new Queue<ParticleSystem>();
+    private Dictionary<int, ParticleSystem> particleDictionary = new Dictionary<int, ParticleSystem>();
+    private Dictionary<int, Queue<ParticleSystem>> particlesQueueDictionary = new Dictionary<int, Queue<ParticleSystem>>();
+
+    //private Queue<ParticleSystem> deathQueue = new Queue<ParticleSystem>();
+    //private Queue<ParticleSystem> projectileFireQueue = new Queue<ParticleSystem>();
+    //private Queue<ParticleSystem> projectileHitQueue = new Queue<ParticleSystem>();
+    //private Queue<ParticleSystem> enemyDeathQueue = new Queue<ParticleSystem>();
 
     private void Awake()
     {
         AddParticlesToQueue();
-        AddQueDictionary();
-        AddParticleToDictionary();
+        //AddQueDictionary();
+        //AddParticleToDictionary();
     }
 
     public void PlayParticle(Particles particle, Vector3 positionToPlayAt)
     {
-        var particleToPlay = Instantiate(particleDictionary[particle], positionToPlayAt, Quaternion.identity);
+        var particleToPlay = Instantiate(particleDictionary[(int)particle], positionToPlayAt, Quaternion.identity);
         particleToPlay.Play();
     }
 
     public void FetchAndPlayParticleAtPosition(Particles particle, Vector3 positionToPlayAt)
     {
-        var queue = particlesQueueDictionary[particle];
+        var queue = particlesQueueDictionary[(int)particle];
         if (queue.Count == 0 || queue.Peek().isPlaying)
         {
-            var newParticle = Instantiate(particleDictionary[particle], positionToPlayAt, Quaternion.identity);
+            var newParticle = Instantiate(particleDictionary[(int)particle], positionToPlayAt, Quaternion.identity);
             newParticle.Play();
             queue.Enqueue(newParticle);
         }
@@ -77,26 +80,39 @@ public class ParticlePlayer : MonoBehaviour
 
     private void AddParticleToDictionary()
     {
-        particleDictionary.Add(Particles.EnemyDeath, enemyDeathParticle);
-        particleDictionary.Add(Particles.PlayerDeath, deathParticle);
-        particleDictionary.Add(Particles.ProjectileFire, projectileFireParticle);
-        particleDictionary.Add(Particles.ProjectileHit, projectileHitParticle);
+        //particleDictionary.Add(Particles.EnemyDeath, enemyDeathParticle);
+        //particleDictionary.Add(Particles.PlayerDeath, deathParticle);
+        //particleDictionary.Add(Particles.ProjectileFire, projectileFireParticle);
+        //particleDictionary.Add(Particles.ProjectileHit, projectileHitParticle);
     }
 
     private void AddParticlesToQueue()
     {
-        QueueParticles(deathQueue, deathParticle);
-        QueueParticles(projectileFireQueue, projectileFireParticle);
-        QueueParticles(projectileHitQueue, projectileHitParticle);
-        QueueParticles(enemyDeathQueue, enemyDeathParticle);
+        for (int i = 0; i < particles.Length; i++)
+        {
+            var queue = new Queue<ParticleSystem>();
+            QueueParticles(queue, particles[i]);
+            particlesQueueDictionary.Add(i, queue);
+            particleDictionary.Add(i, particles[i]);
+        }
+
+        //QueueParticles(deathQueue, deathParticle);
+        //QueueParticles(projectileFireQueue, projectileFireParticle);
+        //QueueParticles(projectileHitQueue, projectileHitParticle);
+        //QueueParticles(enemyDeathQueue, enemyDeathParticle);
     }
 
     private void AddQueDictionary()
     {
-        particlesQueueDictionary.Add(Particles.EnemyDeath, enemyDeathQueue);
-        particlesQueueDictionary.Add(Particles.PlayerDeath, deathQueue);
-        particlesQueueDictionary.Add(Particles.ProjectileFire, projectileFireQueue);
-        particlesQueueDictionary.Add(Particles.ProjectileHit, projectileHitQueue);
+        //for (int i = 0; i < particles.Length; i++)
+        //{
+        //    particlesQueueDictionary.Add(i, )
+        //}
+
+        //particlesQueueDictionary.Add(Particles.EnemyDeath, enemyDeathQueue);
+        //particlesQueueDictionary.Add(Particles.PlayerDeath, deathQueue);
+        //particlesQueueDictionary.Add(Particles.ProjectileFire, projectileFireQueue);
+        //particlesQueueDictionary.Add(Particles.ProjectileHit, projectileHitQueue);
     }
 }
 
